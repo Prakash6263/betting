@@ -1,0 +1,161 @@
+
+DIFF  /home
+  classes only-next: ["badge","bg-success","bi-chevron-down","bi-translate","border-secondary","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","fw-semibold","language-option","my-1","py-2","shadow-lg"]
+  classes only-html: []
+  ids only-next: ["_R_","langDropdownBtn","selectedLangText"]
+  ids only-html: []
+  h-next: See the Game.Understand the Market.Predict What's Next. || 500+ || 1M+ || 250K+ || 98.7% || Every Match.Every Signal.One Intelligence Layer. || Never Miss a Mat
+  h-html: Observez le jeu. Comprenez le marché. Anticipez la suite. || Plus de 500 || Plus d'un million || Plus de 250 000 || 98,7% || Chaque match. Chaque signal. Une se
+  visible text len differs (next 4868 / html 5599)
+
+DIFF  /login
+  title: next="undefined" html="undefined"
+  classes only-next: ["badge","bg-success","bi-chevron-down","bi-translate","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","language-option","my-1","py-2","shadow-lg","theme-toggle-btn"]
+  classes only-html: []
+  ids only-next: ["_R_","langDropdownBtn","selectedLangText"]
+  ids only-html: []
+  h-next: Welcome Back
+  h-html: Content de te revoir
+  visible text len differs (next 659 / html 851)
+
+DIFF  /register
+  title: next="undefined" html="undefined"
+  classes only-next: ["badge","bg-success","bi-chevron-down","bi-translate","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","language-option","my-1","py-2","shadow-lg","theme-toggle-btn"]
+  classes only-html: []
+  ids only-next: ["_R_","langDropdownBtn","selectedLangText"]
+  ids only-html: []
+  h-next: Unlock High-Precision Match Signals. || Create Your Account
+  h-html: Débloquez des signaux de correspondance de haute précision. || Créez votre compte
+  visible text len differs (next 1183 / html 1569)
+
+DIFF  /dashboard
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 2276 / html 2886)
+
+DIFF  /advanced-stats
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 2277 / html 2884)
+
+DIFF  /ai-predictions
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 2544 / html 3096)
+
+DIFF  /help-support
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  h-next: Help & Support || Frequently asked questions || Need more help?
+  h-html: Aide et assistance || Foire aux questions || Besoin d'aide supplémentaire ?
+  visible text len differs (next 778 / html 1049)
+
+DIFF  /market-analysis
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 1834 / html 2237)
+
+DIFF  /match-analysis
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  h-next: Model Outcome Probabilities (live) || Key Factors Influencing the Model || Fair Odds vs Market Odds || Live Win Probability Timeline || Model Confidence & Expla
+  h-html: Probabilités des résultats du modèle (en direct) || Facteurs clés influençant le modèle || Cotes équitables vs cotes du marché || Chronologie des probabilités d
+  visible text len differs (next 1847 / html 2381)
+
+DIFF  /match-reports
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 2821 / html 3396)
+
+DIFF  /match-schedule
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  h-next: Global Match Calendar
+  h-html: Calendrier des matchs mondiaux
+  visible text len differs (next 1442 / html 1734)
+
+DIFF  /matches
+  title: next="undefined" html="undefined"
+  ids only-next: ["_R_"]
+  ids only-html: []
+  h-next: Upcoming (42) || STATES & EXAMPLES || Match explorer || High-interest fixtures || Live signals || Today by the numbers
+  h-html: À venir (42) || ÉTATS ET EXEMPLES || explorateur de matchs || Installations à fort intérêt || Live signals || Today by the numbers
+  visible text len differs (next 2217 / html 2573)
+
+DIFF  /news
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 2297 / html 3062)
+
+DIFF  /player-analytics
+  classes only-next: ["VIpgJd-ZVi9od-ORHb-OEVmcd","VIpgJd-ZVi9od-aZ2wEe-OiiCO","VIpgJd-ZVi9od-aZ2wEe-wOHMyf","VIpgJd-ZVi9od-l4eHX-hSRGPd","VIpgJd-ZVi9od-xl07Ob-OEVmcd","VIpgJd-yAWNEb-L7lbkb","VIpgJd-yAWNEb-hvhgNd","VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c","VIpgJd-yAWNEb-hvhgNd-N7Eqid","VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od","VIpgJd-yAWNEb-hvhgNd-UTujCb","VIpgJd-yAWNEb-hvhgNd-Ud7fr","VIpgJd-yAWNEb-hvhgNd-aXYTce","VIpgJd-yAWNEb-hvhgNd-axAV1","VIpgJd-yAWNEb-hvhgNd-bgm6sf"]
+  classes only-html: []
+  ids only-next: [":0.targetLanguage",":1.container","_R_"]
+  ids only-html: []
+
+DIFF  /profile
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  h-next: Your Profile || Personal Snapshot || John Doe || Profile overview || Security
+  h-html: Votre profil || Aperçu personnel || John Doe || Aperçu du profil || Sécurité
+  visible text len differs (next 848 / html 1085)
+
+DIFF  /settings
+  ids only-next: ["_R_"]
+  ids only-html: []
+
+DIFF  /sports-coverage
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-ORHb-OEVmcd","VIpgJd-ZVi9od-aZ2wEe-OiiCO","VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc","VIpgJd-ZVi9od-l4eHX-hSRGPd","VIpgJd-ZVi9od-xl07Ob-OEVmcd","VIpgJd-yAWNEb-L7lbkb","VIpgJd-yAWNEb-hvhgNd","VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c","VIpgJd-yAWNEb-hvhgNd-N7Eqid","VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od","VIpgJd-yAWNEb-hvhgNd-UTujCb","VIpgJd-yAWNEb-hvhgNd-Ud7fr","VIpgJd-yAWNEb-hvhgNd-aXYTce"]
+  ids only-next: ["_R_"]
+  ids only-html: [":0.targetLanguage",":1.container"]
+  visible text len differs (next 2870 / html 3935)
+
+DIFF  /team-performance
+  classes only-next: ["VIpgJd-ZVi9od-ORHb-OEVmcd","VIpgJd-ZVi9od-aZ2wEe-OiiCO","VIpgJd-ZVi9od-aZ2wEe-wOHMyf","VIpgJd-ZVi9od-l4eHX-hSRGPd","VIpgJd-ZVi9od-xl07Ob-OEVmcd","VIpgJd-yAWNEb-L7lbkb","VIpgJd-yAWNEb-hvhgNd","VIpgJd-yAWNEb-hvhgNd-IuizWc-i3jM8c","VIpgJd-yAWNEb-hvhgNd-N7Eqid","VIpgJd-yAWNEb-hvhgNd-N7Eqid-B7I4Od","VIpgJd-yAWNEb-hvhgNd-UTujCb","VIpgJd-yAWNEb-hvhgNd-Ud7fr","VIpgJd-yAWNEb-hvhgNd-aXYTce","VIpgJd-yAWNEb-hvhgNd-axAV1","VIpgJd-yAWNEb-hvhgNd-bgm6sf"]
+  classes only-html: []
+  ids only-next: [":0.targetLanguage",":1.container","_R_"]
+  ids only-html: []
+
+DIFF  /value-bets
+  title: next="undefined" html="undefined"
+  classes only-next: []
+  classes only-html: ["VIpgJd-ZVi9od-aZ2wEe-OiiCO-ti6hGc","VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc"]
+  ids only-next: ["_R_"]
+  ids only-html: []
+  visible text len differs (next 1932 / html 2494)
+
+DIFF  /watchlist
+  ids only-next: ["_R_"]
+  ids only-html: []

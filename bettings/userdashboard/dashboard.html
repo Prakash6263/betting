@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+     
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link  p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="dashboard-header-title">DASHBOARD</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute " style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+       
+        <div class="dashboard-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Until Dec 31, 2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down " style="font-size: 9px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success  border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 " style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down  ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item  small" href="profile.html"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item  small" href="settings.html"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link active">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="advanced-stats.html" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="match-reports.html" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="watchlist.html" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="settings.html" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="help-support.html" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+<!-- Main Container Content -->
+
+
+<main class="main-content" id="mainContent">
+  <div class="ref-dashboard">
+    <section class="topline">
+      <div><div class="ref-search"><i class="fa-solid fa-magnifying-glass"></i> Search matches, teams, players or leagues... <kbd><i class="fa-brands fa-apple"></i> K</kbd></div><div class="filter-label">Quick Filters</div><div class="filters"><span class="filter">Top Leagues　⌄</span><span class="filter"><i class="fa-regular fa-calendar"></i>　Today</span><span class="filter green"><i class="fa-solid fa-circle dot"></i> High Confidence</span><span class="filter">＋ +EV Bets</span><span class="filter"><i class="fa-regular fa-circle-dot text-danger"></i>　Live Now</span><span class="filter">More Filters　<i class="fa-solid fa-filter"></i></span></div></div>
+      <div class="personal"><div class="card-title">Personalization <span class="link">Manage</span></div><div class="personal-body"><div>Favorite Leagues<div class="league-icons">⚽　🔴　🇩🇪　🔵</div></div><div class="vline"></div><div>Preferred Markets<div class="market-pills"><span>1X2</span><span>Over/Under</span><span>BTTS</span><span>+EV Only</span></div></div></div></div>
+    </section>
+    <section class="board">
+      <article class="ref-card"><div class="card-title"><span><i class="fa-regular fa-star me-2"></i> Watchlist</span><span class="link">View all　❯</span></div><div class="compact-list">
+        <div class="match"><span class="match-time">Today<br>18:30</span><div class="match-team"><span class="bi bi-shield-shaded fs-5 text-info"></span>Arsenal<span style="margin-left:27px"><span class="bi bi-shield-fill-x fs-5 text-primary"></span> Chelsea</span><div class="odds"><span>1　2.16</span><span>X　3.60</span><span>2　2.70</span></div></div><b class="positive">+25.0%</b></div>
+        <div class="match"><span class="match-time">Today<br>21:00</span><div class="match-team"><span class="bi bi-shield-fill text-warning fs-5"></span>Real Madrid<span style="margin-left:27px"><span class="bi bi-shield-slash text-warning fs-5"></span> Barsalona</span><div class="odds"><span>1　2.05</span><span>X　3.40</span><span>2　3.20</span></div></div><b class="positive">+18.3%</b></div>
+        <div class="match"><span class="match-time">Tomorrow<br>17:00</span><div class="match-team"><span class="bi bi-shield-slash text-danger fs-5"></span>Inter<span style="margin-left:27px"><span class="bi bi-shield text-secondary fs-5"></span>Milan</span><div class="odds"><span>1　1.91</span><span>X　3.50</span><span>2　3.90</span></div></div><b class="positive">+15.7%</b></div>
+      </div></article>
+      <article class="ref-card"><div class="card-title"><span><i class="fa-regular fa-bell me-2"></i> Alert Center</span><span class="link">View all　❯</span></div><div class="compact-list"><div class="alert"><span class="alert-icon">↗</span><span><b>High value bet detected</b><small>Arsenal vs Chelsea　•　Over 2.5 Goals</small></span><b class="text-success">+25.0%</b></div><div class="alert"><span class="alert-icon">↗</span><span><b>Line movement</b><small>Real Madrid vs Barcelona　•　1X2</small></span><small>7m ago</small></div><div class="alert"><span class="alert-icon">✚</span><span><b>Injury update</b><small>Man City　•　Kevin De Bruyne (Doubtful)</small></span><small>32m ago</small></div><div class="alert"><span class="alert-icon">◉</span><span><b>Model recalibrated</b><small>Premier League models updated</small></span><small>1h ago</small></div></div></article>
+      <article class="ref-card health"><div class="card-title"><span><i class="fa-solid fa-wave-square text-success me-2"></i> Data Health</span><span class="link">View details　❯</span></div><div class="health-row head"><span>Provider</span><span>Status</span><span>Last Update</span><span>Latency</span></div><div class="health-row"><span>Opta Feed</span><span><i class="fa-solid fa-circle status-dot"></i> Operational</span><span>1 min ago</span><span>1 min</span></div><div class="health-row"><span>Opta Lineups</span><span><i class="fa-solid fa-circle status-dot"></i> Operational</span><span>2 min ago</span><span>2 min</span></div><div class="health-row"><span>Market Feed</span><span><i class="fa-solid fa-circle status-dot"></i> Operational</span><span>1 min ago</span><span>&lt;1 min</span></div><div class="health-row"><span>MétéoLive</span><span><i class="fa-solid fa-circle warning"></i> Delayed</span><span>12 min ago</span><span>12 min</span></div><div class="health-row"><span>Betfair Exchange</span><span><i class="fa-solid fa-circle offline"></i> Offline</span><span>—</span><span>—</span></div><div class="health-footer"><span>Overall Data Health</span><span class="degraded">Degraded　●</span></div></article>
+    </section>
+    <section class="mid">
+      <article class="ref-card perf"><div class="card-title"><span><i class="fa-solid fa-arrow-trend-up me-2"></i> Model Performance</span><span class="link">View report　❯</span></div><div class="performance"><div><small class="subtle">Model Accuracy<br>(All Markets)</small><div class="accuracy">71%<small>Good</small></div><div class="ring"></div></div><div><div class="spark">Calibration (Brier Score)<strong>0.146</strong><b class="text-success">Good</b>　〰〰〰</div><div class="spark">ROI (Last 30 Days)<strong class="text-success">+11.4%</strong><b class="text-success">Positive</b>　〰〰〰</div></div></div><div class="subtle border-top pt-2">Based on 2,432 settled predictions <span style="float:right">Updated 2h ago</span></div></article>
+      <article class="ref-card upcoming"><div class="card-title"><span><i class="fa-regular fa-clock me-2"></i> Upcoming Matches</span><span class="link">View all　❯</span></div><div class="compact-list"><div class="match"><span class="match-time">Today 18:30</span><span class="match-team">🔴　Arsenal</span><span class="match-team">Chelsea</span><b class="positive">+25.0%</b></div><div class="match"><span class="match-time">Today 21:00</span><span class="match-team">🔴　Real Madrid</span><span class="match-team">Barcelona</span><b class="positive">+18.3%</b></div><div class="match"><span class="match-time">Tomorrow 17:00</span><span class="match-team">⚫　Juventus</span><span class="match-team">Napoli</span><b class="positive">+14.2%</b></div><div class="match"><span class="match-time">Tomorrow 20:45</span><span class="match-team">🔴　Bayern München</span><span class="match-team">Borussia Dortmund</span><b class="positive">+12.1%</b></div><div class="match"><span class="match-time">Mar 12 21:00</span><span class="match-team">⚪　PSG</span><span class="match-team">Marseille</span><b class="positive">+16.7%</b></div></div></article>
+      <div class="saved"><article class="ref-card"><div class="card-title"><span><i class="fa-regular fa-circle-dot me-2"></i> Saved Views</span><span class="link">View all　❯</span></div><div class="saved-item"><span class="saved-icon">⌁</span><span><b>+EV Opportunities</b><small class="subtle">Last opened 2h ago</small></span><b>•••</b></div><div class="saved-item"><span class="saved-icon">⌁</span><span><b>High Confidence Picks</b><small class="subtle">Last opened yesterday</small></span><b>•••</b></div><div class="saved-item"><span class="saved-icon">⌁</span><span><b>Premier League Overview</b><small class="subtle">Last opened 3d ago</small></span><b>•••</b></div></article><article class="ref-card subscription"><div class="card-title"><span><i class="fa-solid fa-crown text-warning me-2"></i> Subscription</span><span class="link">Manage</span></div><div class="subscription-box"><div><b>Pro Plan</b><small class="subtle">Renews Dec 31, 2025</small><div class="market-pills"><span>AI Predictions</span><span>+EV Analysis</span><span>Advanced Stats</span></div></div><b class="usage">342 / 500<br><small>Predictions<br>used</small></b></div></article></div>
+      <article class="offline-panel"><i class="fa-solid fa-cloud-arrow-down"></i><span><b>No Internet Connection</b><small class="subtle">You are currently offline. Some data may be unavailable or outdated.<br>We’ll automatically sync when your connection is restored.</small></span><span class="retry"><i class="fa-solid fa-rotate-right me-2"></i> Retry Connection</span></article><div class="footer-note"><b>●　Some data is delayed.</b> Predictions may be less accurate.　　Last sync: 12 min ago　↻</div>
+    </section>
+  </div>
+</main>
+
+<!-- Interactive Scripts -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sidebar Toggle Handler for Mobile & Desktop
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        sidebarToggle.addEventListener('click', function () {
+            if (window.innerWidth <= 991.98) {
+                sidebar.classList.toggle('mobile-show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+            }
+        });
+
+        // Theme Switcher
+        // const themeToggleBtn = document.getElementById('themeToggleBtn');
+        // const themeIcon = document.getElementById('themeIcon');
+        // const htmlTag = document.documentElement;
+
+        // themeToggleBtn.addEventListener('click', function () {
+        //     const currentTheme = htmlTag.getAttribute('data-bs-theme');
+        //     if (currentTheme === 'dark') {
+        //         htmlTag.setAttribute('data-bs-theme', 'light');
+        //         themeIcon.classList.remove('fa-moon');
+        //         themeIcon.classList.add('fa-sun');
+        //     } else {
+        //         htmlTag.setAttribute('data-bs-theme', 'dark');
+        //         themeIcon.classList.remove('fa-sun');
+        //         themeIcon.classList.add('fa-moon');
+        //     }
+        // });
+
+        // The reference dashboard does not include the legacy chart canvases.
+        if (!document.getElementById('oddsChart')) return;
+
+        // Odds Movement Chart
+        const ctxOdds = document.getElementById('oddsChart').getContext('2d');
+        new Chart(ctxOdds, {
+            type: 'line',
+            data: {
+                labels: ['-72h', '-48h', '-24h', 'Now'],
+                datasets: [
+                    {
+                        label: 'Man City Win',
+                        data: [1.85, 1.78, 1.74, 1.72],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        pointRadius: 3
+                    },
+                    {
+                        label: 'Draw',
+                        data: [4.10, 4.20, 4.25, 4.35],
+                        borderColor: '#f59e0b',
+                        borderWidth: 2,
+                        borderDash: [4, 4],
+                        tension: 0.3,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Bar Chart
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Man City', 'Real Madrid', 'Arsenal', 'Bayern', 'PSG', 'Inter'],
+                datasets: [
+                    {
+                        label: 'Actual Goals Scored',
+                        data: [58, 54, 51, 62, 55, 48],
+                        backgroundColor: '#10b981',
+                        borderRadius: 5
+                    },
+                    {
+                        label: 'Expected Goals (xG)',
+                        data: [52, 49, 48, 57, 50, 44],
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+                },
+                scales: {
+                    x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // Doughnut Chart
+        const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+        new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Match Result (1X2)', 'Over/Under Goals', 'Asian Handicap', 'Both Teams To Score'],
+                datasets: [{
+                    data: [45, 25, 18, 12],
+                    backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: '#94a3b8', font: { size: 11 }, padding: 15 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    });
+</script>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/language.js?v=4"></script>
+<script src="assets/js/theme.js?v=1"></script>
+
+</body>
+</html>

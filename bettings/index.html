@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Football Intelligence</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+            
+            <div class="brand-text">
+                <img src="images/logo.png" style="width:250px"/>
+            </div></a> <button class="navbar-toggler bg-dark" data-bs-target="#nav" data-bs-toggle="collapse"><i class="bi bi-list text-white"></i></button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <a class="btn-login" href="login.html">Login</a> <a class="btn-primary-custom" href="register.html">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </nav><!-- HERO -->
+    <section class="hero pb-5">
+        <div class="container">
+            <div class="hero-content text-center">
+                <span class="badge-green"><i class="bi bi-stars"></i> Next Generation Football Intelligence</span>
+                <h1>See the Game.<br>
+                <span>Understand the Market.</span><br>
+                Predict What's Next.</h1>
+                <p class="hero-description">An AI-powered football intelligence platform combining advanced match analytics, predictive models, betting market intelligence and estimated global betting volume.</p>
+                <div class="hero-buttons">
+                    <a class="btn-primary-custom" href="register.html">Start Analyzing Free <i class="bi bi-arrow-right ms-2"></i></a> <a class="btn-outline-custom" href="#matches">Explore Live Matches <i class="bi bi-play-circle ms-2"></i></a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <h3>500+</h3>
+                        <p>Leagues Covered</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>1M+</h3>
+                        <p>Matches Analyzed</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>250K+</h3>
+                        <p>Players Tracked</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>98.7%</h3>
+                        <p>AI Data Accuracy</p>
+                    </div>
+                </div>
+            </div><!-- HERO IMAGE -->
+            <div class="hero-visual">
+                <div class="hero-visual-content">
+                    <div>
+                        <span class="badge-green"><i class="bi bi-activity"></i> Live Football Intelligence</span>
+                        <h2 class="mt-4">Every Match.<br>
+                        Every Signal.<br>
+                        One Intelligence Layer.</h2>
+                        <p>Analyze matches, understand market movements, detect sharp money and discover hidden betting signals.</p><a class="btn-primary-custom" href="#matches">Explore Match Intelligence</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- =========================================
+     NEW MATCHES SECTION
+========================================= -->
+    <section class="section matches-section" id="matches">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green"><i class="bi bi-calendar-event"></i> Live & Upcoming Fixtures</span>
+                <h2 class="section-title mt-3">Never Miss a <span class="text-green">Match Signal</span></h2>
+                <p class="section-subtitle">Follow the world's biggest football fixtures with AI predictions, live market movements, betting intelligence and match-level insights.</p>
+            </div><!-- FILTERS -->
+            <div class="match-toolbar">
+                <button class="filter-btn active">All Matches</button> <button class="filter-btn">Live Now</button> <button class="filter-btn">Today</button> <button class="filter-btn">Tomorrow</button> <button class="filter-btn">Champions League</button> <button class="filter-btn">Premier League</button> <button class="filter-btn">La Liga</button>
+            </div>
+            <div class="row g-4">
+                <!-- FEATURED MATCH -->
+                <div class="col-lg-7">
+                    <div class="featured-match">
+                        <div class="featured-top">
+                            <span class="league-name">UEFA Champions League</span> <span class="live-badge">● LIVE INTELLIGENCE</span>
+                        </div>
+                        <div class="featured-content">
+                            <span class="league-name">Champions League • Today 21:00</span>
+                            <div class="featured-teams">
+                                <div class="team-large">
+                                    <div class="team-logo-large">
+                                       <img src="images/team-1.png" style="width:45px"/>
+                                    </div>
+                                    <h3>Real Madrid</h3>
+                                </div>
+                                <div class="vs-large">
+                                    VS
+                                </div>
+                                <div class="team-large">
+                                    <div class="team-logo-large">
+                                       <img src="images/team-2.png" style="width:45px"/>
+                                    </div>
+                                    <h3>Barcelona</h3>
+                                </div>
+                            </div>
+                            <div class="featured-meta">
+                                <span><i class="bi bi-geo-alt me-1"></i> Santiago Bernabéu</span> <span><i class="bi bi-clock me-1"></i> 21:00</span> <span><i class="bi bi-calendar3 me-1"></i> 21 Apr 2026</span>
+                            </div>
+                            <div class="intelligence-strip">
+                                <div class="intel-pill">
+                                    AI Prediction <strong>Real Madrid</strong>
+                                </div>
+                                <div class="intel-pill">
+                                    Confidence <strong>82%</strong>
+                                </div>
+                                <div class="intel-pill">
+                                    Volume <strong>$214.6M</strong>
+                                </div>
+                                <div class="intel-pill">
+                                    Sharp Money <strong>Detected</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- UPCOMING MATCH LIST -->
+                <div class="col-lg-5">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="mb-0">Upcoming Matches</h5><a class="text-green small" href="#">View All →</a>
+                    </div><!-- MATCH 1 -->
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>UEFA Champions League</span> <span>Today 19:30</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-2.png" style="width:45px"/>
+                                </div><small>Man City</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-3.png" style="width:45px"/>
+                                </div><small>Inter</small>
+                            </div>
+                        </div>
+                        <div class="fixture-bottom">
+                            <span>AI Confidence <strong>92%</strong></span> <span>Value <strong>+16.2%</strong></span>
+                        </div>
+                    </div><!-- MATCH 2 -->
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>Premier League</span> <span>Today 20:00</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-4.png" style="width:45px"/>
+                                </div><small>Arsenal</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-5.png" style="width:45px"/>
+                                </div><small>Newcastle</small>
+                            </div>
+                        </div>
+                        <div class="fixture-bottom">
+                            <span>AI Confidence <strong>87%</strong></span> <span>Value <strong>+19.9%</strong></span>
+                        </div>
+                    </div><!-- MATCH 3 -->
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>La Liga</span> <span>Tomorrow 21:00</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-1.png" style="width:45px"/>
+                                </div><small>Atletico Madrid</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-2.png" style="width:45px"/>
+                                </div><small>Valencia</small>
+                            </div>
+                        </div>
+                        <div class="fixture-bottom">
+                            <span>AI Confidence <strong>79%</strong></span> <span>Value <strong>+12.4%</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- UPCOMING FIXTURES GRID -->
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <span class="badge-green">Next Schedule</span>
+                            <h3 class="mt-3 mb-0">Fixtures of All Upcoming Matches</h3>
+                        </div><a class="btn-outline-custom" href="#">View All Sports <i class="bi bi-arrow-right ms-2"></i></a>
+                    </div>
+                </div><!-- FIXTURE -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>UEFA Champions League</span> <span>21:00</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                   <img src="images/team-1.png" style="width:45px"/>
+                                </div><small>Real Madrid</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-2.png" style="width:45px"/>
+                                </div><small>Barcelona</small>
+                            </div>
+                        </div>
+                        <div class="odds-row">
+                            <div class="odds">
+                                1 <strong>1.59</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>4.35</strong>
+                            </div>
+                            <div class="odds">
+                                2 <strong>7.14</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>9.14</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>Premier League</span> <span>20:30</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                   <img src="images/team-4.png" style="width:45px"/>
+                                </div><small>Liverpool</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                    <img src="images/team-5.png" style="width:45px"/>
+                                </div><small>Aston Villa</small>
+                            </div>
+                        </div>
+                        <div class="odds-row">
+                            <div class="odds">
+                                1 <strong>1.48</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>4.20</strong>
+                            </div>
+                            <div class="odds">
+                                2 <strong>6.80</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>8.80</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="fixture-card">
+                        <div class="fixture-top">
+                            <span>Bundesliga</span> <span>19:30</span>
+                        </div>
+                        <div class="fixture-teams">
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                   <img src="images/team-3.png" style="width:45px"/>
+                                </div><small>Bayern Munich</small>
+                            </div>
+                            <div class="fixture-vs">
+                                VS
+                            </div>
+                            <div class="fixture-team">
+                                <div class="fixture-logo">
+                                   <img src="images/team-4.png" style="width:45px"/>
+                                </div><small>Dortmund</small>
+                            </div>
+                        </div>
+                        <div class="odds-row">
+                            <div class="odds">
+                                1 <strong>1.65</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>4.10</strong>
+                            </div>
+                            <div class="odds">
+                                2 <strong>5.90</strong>
+                            </div>
+                            <div class="odds">
+                                X <strong>7.90</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- AI INTELLIGENCE -->
+    <section class="section bg-bluee" id="intelligence">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green">AI Match Intelligence</span>
+                <h2 class="section-title mt-3">Understand Every Match <span class="text-green">Before Kick-Off</span></h2>
+                <p class="section-subtitle">Our intelligence engine analyzes thousands of data points to transform complex football information into simple insights.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="ai-card">
+                        <div class="ai-icon">
+                            <i class="bi bi-stars"></i>
+                        </div>
+                        <h4>AI Predictions</h4>
+                        <p>Probability-based predictions powered by team form, player data, tactics, injuries and historical performance.</p>
+                        <div class="ai-stat">
+                            <span>Home Win</span> <span>63%</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Draw</span> <span>23%</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Away Win</span> <span>14%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ai-card">
+                        <div class="ai-icon">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <h4>Market Intelligence</h4>
+                        <p>Track odds movement, market imbalance, money flow, sharp money and steam moves.</p>
+                        <div class="ai-stat">
+                            <span>Sharp Money</span> <span>Strong</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Steam Move</span> <span>Active</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Market Activity</span> <span>High</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ai-card">
+                        <div class="ai-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
+                        <h4>Football Analytics</h4>
+                        <p>Deep team and player intelligence with advanced statistics, xG, form, injuries and tactical analysis.</p>
+                        <div class="ai-stat">
+                            <span>Team Form</span> <span>86/100</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Home Advantage</span> <span>80/100</span>
+                        </div>
+                        <div class="ai-stat">
+                            <span>Motivation</span> <span>78/100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- BETTING VOLUME -->
+    <section class="section" id="volume">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green">Market Innovation</span>
+                <h2 class="section-title mt-3">Estimate the <span class="text-green">Global Betting Market</span></h2>
+                <p class="section-subtitle">Use AI-powered market estimation to understand the potential financial activity surrounding major football matches.</p>
+            </div>
+            <div class="volume-card">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-6">
+                        <small class="text-secondary">ESTIMATED GLOBAL BETTING VOLUME</small>
+                        <div class="volume-number">
+                            $214.6M
+                        </div>
+                        <div class="volume-range">
+                            Estimated range: $180M – $230M
+                        </div>
+                        <div class="volume-bar"></div>
+                        <div class="row">
+                            <div class="col-6">
+                                <small class="text-secondary">CONFIDENCE</small>
+                                <h5 class="text-green mt-2">82%</h5>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-secondary">MARKET ACTIVITY</small>
+                                <h5 class="text-green mt-2">VERY HIGH</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="market-row">
+                            <span>Real Madrid</span> <span>58% Money Flow</span>
+                        </div>
+                        <div class="market-row">
+                            <span>Draw</span> <span>15% Money Flow</span>
+                        </div>
+                        <div class="market-row">
+                            <span>Barcelona</span> <span>27% Money Flow</span>
+                        </div>
+                        <div class="market-row">
+                            <span>Sharp Money</span> <span>Real Madrid</span>
+                        </div>
+                        <div class="market-row">
+                            <span>Steam Move</span> <span>Active</span>
+                        </div>
+                        <div class="market-row">
+                            <span>Market Liquidity</span> <span>High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- FEATURES -->
+    <section class="section bg-bluee" id="features">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green">Powerful Intelligence</span>
+                <h2 class="section-title mt-3">Everything You Need in <span class="text-green">One Platform</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-lightning-charge"></i>
+                        </div>
+                        <h4>Sharp Money Detection</h4>
+                        <p>Identify unusual money flows by comparing bet percentages, stake distribution and odds movements.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-activity"></i>
+                        </div>
+                        <h4>Steam Move Tracking</h4>
+                        <p>Monitor rapid odds changes and detect where the betting market is moving in real time.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h4>Team & Player Analysis</h4>
+                        <p>Explore team form, player performance, injuries, suspensions, tactics and advanced statistics.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-calendar3"></i>
+                        </div>
+                        <h4>Match Calendar</h4>
+                        <p>Explore upcoming matches across leagues and competitions with AI-powered match intelligence.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h4>Smart Alerts</h4>
+                        <p>Receive alerts for value opportunities, odds movement, sharp money and high market activity.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-file-earmark-bar-graph"></i>
+                        </div>
+                        <h4>Professional Reports</h4>
+                        <p>Generate comprehensive match, team, player and betting market intelligence reports.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- HOW IT WORKS -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green">How It Works</span>
+                <h2 class="section-title mt-3">From Data to <span class="text-green">Intelligence</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">
+                            01
+                        </div>
+                        <h4>Collect</h4>
+                        <p>Football data, odds, match statistics and market signals are continuously collected.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">
+                            02
+                        </div>
+                        <h4>Analyze</h4>
+                        <p>AI models analyze teams, players, form, tactics and market movements.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">
+                            03
+                        </div>
+                        <h4>Detect</h4>
+                        <p>Identify value, sharp money, steam moves and market imbalances.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">
+                            04
+                        </div>
+                        <h4>Decide</h4>
+                        <p>Transform complex football data into clear, professional intelligence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- PRICING -->
+    <section class="section bg-bluee" id="pricing">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge-green">Simple Pricing</span>
+                <h2 class="section-title mt-3">Choose Your <span class="text-green">Intelligence Level</span></h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="pricing-card">
+                        <h4>Free</h4>
+                        <div class="price">
+                            $0 <small>/month</small>
+                        </div>
+                        <ul>
+                            <li><i class="bi bi-check"></i> Basic Match Analysis</li>
+                            <li><i class="bi bi-check"></i> Daily AI Predictions</li>
+                            <li><i class="bi bi-check"></i> Basic Statistics</li>
+                            <li><i class="bi bi-check"></i> Limited Match History</li>
+                        </ul><button class="btn-pricing">Get Started</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="pricing-card featured">
+                        <span class="popular">MOST POPULAR</span>
+                        <h4>Pro</h4>
+                        <div class="price">
+                            $49 <small>/month</small>
+                        </div>
+                        <ul>
+                            <li><i class="bi bi-check"></i> Full AI Predictions</li>
+                            <li><i class="bi bi-check"></i> Value Bets</li>
+                            <li><i class="bi bi-check"></i> Odds Comparison</li>
+                            <li><i class="bi bi-check"></i> Sharp Money Signals</li>
+                            <li><i class="bi bi-check"></i> Steam Move Tracking</li>
+                        </ul><button class="btn-pricing">Start Pro</button>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="pricing-card">
+                        <h4>Elite</h4>
+                        <div class="price">
+                            $149 <small>/month</small>
+                        </div>
+                        <ul>
+                            <li><i class="bi bi-check"></i> Everything in Pro</li>
+                            <li><i class="bi bi-check"></i> Global Betting Volume</li>
+                            <li><i class="bi bi-check"></i> Market Liquidity</li>
+                            <li><i class="bi bi-check"></i> Advanced Reports</li>
+                            <li><i class="bi bi-check"></i> Custom Analytics</li>
+                        </ul><button class="btn-pricing">Go Elite</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-box">
+                <span class="badge-green">Start Your Intelligence Journey</span>
+                <h2 class="mt-4">See Football <span class="text-green">Differently.</span></h2>
+                <p class="text-secondary mx-auto my-4" style="max-width:650px;">Turn thousands of football data points and complex betting market signals into one clear intelligence layer.</p><a class="btn-primary-custom" href="register.html">Create Your Free Account <i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section><!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <a class="navbar-brand" href="#">
+                    <div class="brand-icon">
+                        <i class="bi bi-globe2"></i>
+                    </div>
+                    <div class="brand-text">
+                        FOOTBALL <span>INTELLIGENCE</span>
+                    </div></a>
+                    <p class="footer-description">AI-powered football intelligence combining match analytics, predictive models and betting market intelligence.</p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>PLATFORM</h6>
+                    <ul>
+                        <li>
+                            <a href="#matches">Matches</a>
+                        </li>
+                        <li>
+                            <a href="#">AI Predictions</a>
+                        </li>
+                        <li>
+                            <a href="#">Market Analysis</a>
+                        </li>
+                        <li>
+                            <a href="#">Statistics</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>INTELLIGENCE</h6>
+                    <ul>
+                        <li>
+                            <a href="#volume">Betting Volume</a>
+                        </li>
+                        <li>
+                            <a href="#">Sharp Money</a>
+                        </li>
+                        <li>
+                            <a href="#">Steam Moves</a>
+                        </li>
+                        <li>
+                            <a href="#">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>COMPANY</h6>
+                    <ul>
+                        <li>
+                            <a href="#">About</a>
+                        </li>
+                        <li>
+                            <a href="#pricing">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6>LEGAL</h6>
+                    <ul>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms</a>
+                        </li>
+                        <li>
+                            <a href="#">Security</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright d-flex justify-content-between flex-wrap gap-3">
+                <span>© 2026 Football Intelligence. All rights reserved.</span> <span>Built for smarter football decisions.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script> 
+    <script>
+
+    /* Filter buttons */
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+
+    btn.addEventListener('click',function(){
+
+    document.querySelectorAll('.filter-btn')
+    .forEach(b=>b.classList.remove('active'));
+
+    this.classList.add('active');
+
+    });
+
+    });
+
+
+    /* Navbar scroll */
+
+    window.addEventListener('scroll',function(){
+
+    const nav=document.querySelector('.navbar');
+
+    if(window.scrollY>60){
+
+    nav.style.background='rgba(3,8,6,.97)';
+
+    }else{
+
+    nav.style.background='rgba(3,8,6,.82)';
+
+    }
+
+    });
+
+    </script>
+<script src="userdashboard/assets/js/language.js"></script>
+</body>
+</html>

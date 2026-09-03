@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link text-white p-0 me-2" id="sidebarToggle" style="font-size: 19px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="shared-header-title">PLAYER ANALYSIS</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute text-secondary" style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+        <div class="shared-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Until 12/31/2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down text-secondary" style="font-size: 10px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success bg-opacity-25 border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 text-white" style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down text-secondary ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link active">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+
+
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+
+<main class="main-content" id="mainContent">
+        <!-- 1. TOP SEARCH & PLAYER COMPARISON BAR -->
+    <div class="top-search-panel">
+      <div class="search-box-container">
+        <div class="search-input-group">
+          <i class="bi bi-search text-muted"></i>
+          <input type="text" placeholder="Search for a player...">
+        </div>
+        <div class="aliases-text">Aliases: Bukayo Saka, B. Saka, Saka7</div>
+      </div>
+
+      <div class="comparison-group-box">
+        <div class="selected-player-chip">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="player-chip-img" alt="Bukayo Saka">
+          <div>
+            <div class="fw-semibold text-white" style="font-size: 11px;">Bukayo Saka</div>
+            <div class="text-muted" style="font-size: 10px;">Arsenal • #7</div>
+          </div>
+          <i class="bi bi-x text-muted ms-1" style="cursor: pointer; font-size: 12px;"></i>
+        </div>
+
+        <span class="vs-text">VS</span>
+
+        <div class="add-player-btn">
+          <div class="add-player-icon-box"><i class="bi bi-plus"></i></div>
+          <span class="text-white" style="font-size: 10.5px;">Add player</span>
+        </div>
+
+        <span class="vs-text">VS</span>
+
+        <div class="add-player-btn">
+          <div class="add-player-icon-box"><i class="bi bi-plus"></i></div>
+          <span class="text-white" style="font-size: 10.5px;">Add player</span>
+        </div>
+
+        <span class="vs-text">VS</span>
+
+        <div class="add-player-btn">
+          <div class="add-player-icon-box"><i class="bi bi-plus"></i></div>
+          <span class="text-white" style="font-size: 10.5px;">Add player</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. FILTERS BAR -->
+    <div class="dash-card py-2 px-3 mb-2" style="height: auto;">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <div>
+            <span class="text-muted d-block" style="font-size: 10px;">Season</span>
+            <select class="custom-select-sm"><option>2024/25</option></select>
+          </div>
+          <div>
+            <span class="text-muted d-block" style="font-size: 10px;">Competition</span>
+            <select class="custom-select-sm"><option>Premier League</option></select>
+          </div>
+          <div>
+            <span class="text-muted d-block" style="font-size: 10px;">Date range</span>
+            <select class="custom-select-sm"><option>All matches</option></select>
+          </div>
+          <div>
+            <span class="text-muted d-block" style="font-size: 10px;">Position</span>
+            <select class="custom-select-sm"><option>All (Role-aware)</option></select>
+          </div>
+          <div>
+            <span class="text-muted d-block" style="font-size: 10px;">Min. minutes</span>
+            <select class="custom-select-sm"><option>600</option></select>
+          </div>
+          <button class="btn btn-sm text-white border-0 mt-3 d-flex align-items-center gap-1" style="background-color: var(--card-inner); font-size: 10px; height: 26px;">
+            <i class="bi bi-funnel"></i> More filters
+          </button>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm text-white border-0 d-flex align-items-center gap-1" style="background-color: var(--card-inner); font-size: 10px; height: 26px;">
+            <i class="bi bi-download"></i> Export
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. TOP ROW PANELS -->
+    <div class="row g-2 mb-2">
+      <div class="col-lg-8">
+        <div class="row g-2">
+          
+          <!-- Player Info Card -->
+          <div class="col-lg-4">
+            <div class="dash-card">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <div class="player-avatar-circle">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" width="100%" alt="Bukayo Saka">
+                </div>
+                <div>
+                  <div class="fw-bold text-white fs-6">Bukayo Saka</div>
+                  <div class="text-muted" style="font-size: 9.5px;">Arsenal • #7 • Right Winger</div>
+                  <div class="text-muted mt-1" style="font-size: 9.5px;">Age <strong class="text-white">23</strong> (Sep 5, 2001)</div>
+                </div>
+              </div>
+
+              <div class="row g-1 text-center border-top pt-3">
+                <div class="col-3">
+                  <div class="text-muted" style="font-size: 10px;">Minutes</div>
+                  <div class="fw-bold text-white mt-1">2,143</div>
+                </div>
+                <div class="col-3">
+                  <div class="text-muted" style="font-size: 10px;">Starts</div>
+                  <div class="fw-bold text-white mt-1">24</div>
+                </div>
+                <div class="col-3">
+                  <div class="text-muted" style="font-size: 10px;">Avail.</div>
+                  <div class="fw-bold text-success mt-1">91%</div>
+                </div>
+                <div class="col-3">
+                  <div class="text-muted" style="font-size: 10px;">Matches</div>
+                  <div class="fw-bold text-white mt-1">26</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALL 8 KEY METRICS -->
+          <div class="col-lg-8">
+            <div class="dash-card">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <div class="dash-card-title mb-0">Key Metrics (Per 90)</div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="text-white fw-semibold" style="font-size: 9.5px;">Per 90</span>
+                  <input type="checkbox" class="form-check-input-custom" checked>
+                  <span class="text-muted" style="font-size: 9.5px;">Total</span>
+                </div>
+              </div>
+
+              <!-- Metrics Row 1 -->
+              <div class="row g-1 mb-1">
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Non-Penalty Goals</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">0.34</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">88th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 88%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">npxG</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">0.31</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">85th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 85%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">xAG</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">0.38</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">94th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 94%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Assists</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">0.42</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">96th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 96%;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Metrics Row 2 -->
+              <div class="row g-1">
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Shot-Creating Actions</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">5.12</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">92nd percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 92%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Progressive Passes</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">4.85</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">89th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 89%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Successful Take-Ons</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">2.15</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">81st percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 81%;"></div></div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="metric-value-box">
+                    <div class="text-muted text-truncate" style="font-size: 10px;">Touches (Att Pen)</div>
+                    <div class="fw-bold text-white my-0" style="font-size: 13px;">7.40</div>
+                    <div class="text-success fw-semibold" style="font-size: 10px;">95th percentile</div>
+                    <div class="metric-progress"><div class="metric-progress-fill" style="width: 95%;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RADAR CHART -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Percentile Radar (vs. Wingers)</div>
+          <div style="height: 165px; position: relative;">
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. MIDDLE ROW (EXACT MATCH TO SCREENSHOT) -->
+    <div class="row g-2 mb-2">
+      
+      <!-- Shot Map -->
+      <div class="col-lg-3">
+        <div class="dash-card">
+          <div class="dash-card-title">Shot Map <i class="bi bi-info-circle"></i></div>
+          <div class="dash-card-subtitle">All competitions 2024/25</div>
+
+          <div class="pitch-shotmap">
+            <svg width="100%" height="100%" viewBox="0 0 200 130">
+              <!-- Pitch Lines -->
+              <rect x="5" y="5" width="190" height="120" fill="none" stroke="#132338" stroke-width="1"/>
+              <rect x="45" y="5" width="110" height="40" fill="none" stroke="#132338" stroke-width="1"/>
+              <rect x="75" y="5" width="50" height="15" fill="none" stroke="#132338" stroke-width="1"/>
+              <path d="M 80,45 A 20,20 0 0,0 120,45" fill="none" stroke="#132338" stroke-width="1"/>
+
+              <!-- Shot Dots & Stars -->
+              <path d="M 100,20 L 102,24 L 106,24 L 103,27 L 104,31 L 100,28 L 96,31 L 97,27 L 94,24 L 98,24 Z" fill="#22c55e"/> <!-- Green Star (Goal) -->
+              
+              <path d="M 120,25 L 121,27 L 124,27 L 122,29 L 123,31 L 120,30 L 117,31 L 118,29 L 116,27 L 119,27 Z" fill="#ef4444"/>
+              <path d="M 80,28 L 81,30 L 84,30 L 82,32 L 83,34 L 80,33 L 77,34 L 78,32 L 76,30 L 79,30 Z" fill="#ef4444"/>
+              <path d="M 135,32 L 136,34 L 139,34 L 137,36 L 138,38 L 135,37 L 132,38 L 133,36 L 131,34 L 134,34 Z" fill="#ef4444"/>
+              
+              <!-- Blocked Stars -->
+              <path d="M 110,40 L 111,42 L 114,42 L 112,44 L 113,46 L 110,45 L 107,46 L 108,44 L 106,42 L 109,42 Z" fill="#ffffff"/>
+
+              <circle cx="95" cy="12" r="3" fill="#ef4444"/>
+              <circle cx="105" cy="15" r="3.5" fill="#ef4444"/>
+              <circle cx="60" cy="50" r="3" fill="#ef4444"/>
+              <circle cx="140" cy="55" r="3" fill="#ef4444"/>
+              <circle cx="70" cy="65" r="2.5" fill="#3b82f6"/>
+              <circle cx="130" cy="70" r="3" fill="#3b82f6"/>
+              <circle cx="50" cy="80" r="2" fill="#3b82f6"/>
+              <circle cx="150" cy="85" r="2.5" fill="#3b82f6"/>
+              <circle cx="90" cy="95" r="2" fill="#3b82f6"/>
+              <circle cx="110" cy="90" r="2" fill="#ef4444"/>
+            </svg>
+          </div>
+
+          <!-- Legend -->
+          <div class="d-flex align-items-center justify-content-between mt-2 text-muted" style="font-size: 10px;">
+            <span><i class="bi bi-gear-fill text-success" style="font-size:7px;"></i> Goal</span>
+            <span><i class="bi bi-circle-fill text-primary" style="font-size:7px;"></i> On target</span>
+            <span><i class="bi bi-circle-fill text-danger" style="font-size:7px;"></i> Off target</span>
+            <span><i class="bi bi-star-fill text-white" style="font-size:7px;"></i> Blocked</span>
+          </div>
+          <div class="d-flex align-items-center gap-1 mt-1 text-muted" style="font-size: 10px;">
+            <span>Low xG</span>
+            <span class="d-inline-block rounded-circle bg-secondary" style="width: 2px; height: 2px;"></span>
+            <span class="d-inline-block rounded-circle bg-secondary" style="width: 3px; height: 3px;"></span>
+            <span class="d-inline-block rounded-circle bg-secondary" style="width: 4px; height: 4px;"></span>
+            <span class="d-inline-block rounded-circle bg-secondary" style="width: 5px; height: 5px;"></span>
+            <span class="d-inline-block rounded-circle bg-secondary" style="width: 6px; height: 6px;"></span>
+            <span>High xG</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passing Network -->
+      <div class="col-lg-3">
+        <div class="dash-card">
+          <div class="dash-card-title">Passing Network <i class="bi bi-info-circle"></i></div>
+          <div class="dash-card-subtitle">All competitions 2024/25</div>
+          <div class="pitch-shotmap">
+            <svg width="100%" height="100%" viewBox="0 0 200 125">
+              <!-- Pitch Outline -->
+              <rect x="5" y="5" width="190" height="115" fill="none" stroke="#132338" stroke-width="1"/>
+              
+              <!-- Connecting Web Lines -->
+              <line x1="35" y1="35" x2="100" y2="22" stroke="#1d3557" stroke-width="2"/>
+              <line x1="165" y1="35" x2="100" y2="22" stroke="#1d3557" stroke-width="2"/>
+              <line x1="35" y1="35" x2="70" y2="55" stroke="#1d3557" stroke-width="2"/>
+              <line x1="165" y1="35" x2="130" y2="55" stroke="#1d3557" stroke-width="2"/>
+              <line x1="70" y1="55" x2="130" y2="55" stroke="#1d3557" stroke-width="3"/>
+              <line x1="45" y1="85" x2="80" y2="95" stroke="#1d3557" stroke-width="2"/>
+              <line x1="155" y1="85" x2="120" y2="95" stroke="#1d3557" stroke-width="2"/>
+              <line x1="80" y1="95" x2="120" y2="95" stroke="#1d3557" stroke-width="2"/>
+              <line x1="80" y1="95" x2="100" y2="110" stroke="#1d3557" stroke-width="2"/>
+              <line x1="120" y1="95" x2="100" y2="110" stroke="#1d3557" stroke-width="2"/>
+
+              <!-- Player Circles -->
+              <g><circle cx="35" cy="35" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="35" y="37" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">LW</text></g>
+              <g><circle cx="100" cy="22" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="100" y="24" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">ST</text></g>
+              <g><circle cx="165" cy="35" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="165" y="37" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">RW</text></g>
+              
+              <g><circle cx="70" cy="55" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="70" y="57" fill="#22c55e" font-size="4" font-weight="bold" text-anchor="middle">LCM</text></g>
+              <g><circle cx="130" cy="55" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="130" y="57" fill="#22c55e" font-size="4" font-weight="bold" text-anchor="middle">RCM</text></g>
+
+              <g><circle cx="45" cy="85" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="45" y="87" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">LB</text></g>
+              <g><circle cx="80" cy="95" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="80" y="97" fill="#22c55e" font-size="4" font-weight="bold" text-anchor="middle">LCB</text></g>
+              <g><circle cx="120" cy="95" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="120" y="97" fill="#22c55e" font-size="4" font-weight="bold" text-anchor="middle">RCB</text></g>
+              <g><circle cx="155" cy="85" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="155" y="87" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">RB</text></g>
+
+              <g><circle cx="100" cy="110" r="7" fill="#060e19" stroke="#22c55e" stroke-width="1.5"/><text x="100" y="112" fill="#22c55e" font-size="4.5" font-weight="bold" text-anchor="middle">GK</text></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Trend -->
+      <div class="col-lg-3">
+        <div class="dash-card">
+          <div class="dash-card-title">Form Trend <span class="text-muted fw-normal">(Last 10 Matches)</span> <i class="bi bi-info-circle"></i></div>
+          <div class="d-flex align-items-center gap-2 mb-1 text-muted" style="font-size: 10px;">
+            <span class="d-flex align-items-center gap-1"><span style="width:10px; height:2px; background:#22c55e; display:inline-block;"></span> Player Rating</span>
+            <span class="d-flex align-items-center gap-1"><span style="width:10px; height:2px; border-top:1px dashed #64748b; display:inline-block;"></span> Team Avg</span>
+          </div>
+          <div style="height: 125px; position: relative;">
+            <canvas id="formTrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role & Playing Time Evolution -->
+      <div class="col-lg-3">
+        <div class="dash-card">
+          <div class="dash-card-title">Role & Playing Time Evolution <i class="bi bi-info-circle"></i></div>
+          <div class="d-flex align-items-center gap-2 mb-1 text-muted" style="font-size: 10px;">
+            <span class="d-flex align-items-center gap-1"><span style="width:10px; height:10px; background:#1d4ed8; display:inline-block; border-radius:1px;"></span> Minutes</span>
+            <span class="d-flex align-items-center gap-1"><i class="bi bi-circle-fill text-white" style="font-size:5px;"></i> Primary Role</span>
+          </div>
+          <div style="height: 125px; position: relative;">
+            <canvas id="roleEvolutionChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 5. BOTTOM ROW (EXACT MATCH TO SCREENSHOT) -->
+    <div class="row g-2">
+      
+      <!-- Injuries & Suspensions -->
+      <div class="col-lg-3">
+        <div class="dash-card d-flex flex-column justify-content-between">
+          <div>
+            <div class="dash-card-title mb-3">Injuries & Suspensions <i class="bi bi-info-circle"></i></div>
+            
+            <div class="text-muted mb-1" style="font-size: 10px;">Injury</div>
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle text-success fs-6"></i>
+                <span class="text-white fw-semibold">None</span>
+              </div>
+              <span class="text-muted" style="font-size: 10px;">Fully fit</span>
+            </div>
+
+            <div class="text-muted mb-1" style="font-size: 10px;">Suspension</div>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle text-success fs-6"></i>
+                <span class="text-white fw-semibold">None</span>
+              </div>
+              <span class="text-muted" style="font-size: 10px;">Available</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player Comparison Table -->
+      <div class="col-lg-5">
+        <div class="dash-card">
+          <div class="dash-card-title">Player Comparison <span class="text-muted fw-normal">(Up to 3 players)</span></div>
+          <div class="text-muted mb-2" style="font-size: 10px;">Per 90 • 2024/25 • Premier League</div>
+          
+          <table class="w-100 text-white" style="font-size: 10px;">
+            <thead>
+              <tr class="text-muted">
+                <th></th>
+                <th class="text-center">Bukayo Saka<br><span class="fw-normal text-muted" style="font-size:7.5px;">2,143 mins</span></th>
+                <th class="text-center">Mohamed Salah<br><span class="fw-normal text-muted" style="font-size:7.5px;">2,412 mins</span></th>
+                <th class="text-center">Phil Foden<br><span class="fw-normal text-muted" style="font-size:7.5px;">1,876 mins</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="py-1 text-muted">Goals</td>
+                <td class="text-center">0.38 <span class="comp-bar-bg"><span class="comp-bar-fill-green" style="width:60%;"></span></span></td>
+                <td class="text-center">0.68 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:90%;"></span></span></td>
+                <td class="text-center">0.28 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:40%;"></span></span></td>
+              </tr>
+              <tr>
+                <td class="py-1 text-muted">xA</td>
+                <td class="text-center">0.45 <span class="comp-bar-bg"><span class="comp-bar-fill-green" style="width:85%;"></span></span></td>
+                <td class="text-center">0.44 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:80%;"></span></span></td>
+                <td class="text-center">0.37 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:65%;"></span></span></td>
+              </tr>
+              <tr>
+                <td class="py-1 text-muted">Progressive Passes</td>
+                <td class="text-center">6.48 <span class="comp-bar-bg"><span class="comp-bar-fill-green" style="width:90%;"></span></span></td>
+                <td class="text-center">5.91 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:75%;"></span></span></td>
+                <td class="text-center">5.24 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:60%;"></span></span></td>
+              </tr>
+              <tr>
+                <td class="py-1 text-muted">Dribbles</td>
+                <td class="text-center">4.12 <span class="comp-bar-bg"><span class="comp-bar-fill-green" style="width:80%;"></span></span></td>
+                <td class="text-center">3.32 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:65%;"></span></span></td>
+                <td class="text-center">2.89 <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:50%;"></span></span></td>
+              </tr>
+              <tr>
+                <td class="py-1 text-muted">Successful Dribbles %</td>
+                <td class="text-center">62% <span class="comp-bar-bg"><span class="comp-bar-fill-green" style="width:62%;"></span></span></td>
+                <td class="text-center">57% <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:57%;"></span></span></td>
+                <td class="text-center">53% <span class="comp-bar-bg"><span class="comp-bar-fill-blue" style="width:53%;"></span></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Warning & Data Freshness (Red Outer Border Card) -->
+      <div class="col-lg-4">
+        <div class="warning-outer-card">
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-exclamation-circle text-danger fs-6"></i>
+              <strong class="text-danger" style="font-size: 11px;">Sample Size Warning</strong>
+              <i class="bi bi-info-circle text-muted" style="font-size:10px;"></i>
+            </div>
+            <div class="d-flex align-items-start gap-2 mt-2">
+              <i class="bi bi-bar-chart-fill text-success mt-1"></i>
+              <div>
+                <div class="text-white" style="font-size: 9.5px;">Player has played <strong>2,143 minutes</strong> (23.8 matches).</div>
+                <div class="text-muted" style="font-size: 10px;">Metrics are reliable but monitor trends for consistency.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="freshness-inner-box d-flex align-items-center justify-content-between mt-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-info-circle text-success fs-6"></i>
+              <div>
+                <div class="fw-semibold text-white" style="font-size: 10px;">Data Freshness <i class="bi bi-info-circle text-muted" style="font-size:10px;"></i></div>
+                <div class="text-muted" style="font-size: 10px;">Last updated: May 11, 2025 - 10:20 AM</div>
+              </div>
+            </div>
+            <span class="status-badge-green">Up to date</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </main>
+</div>
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    Chart.defaults.color = '#64748b';
+    Chart.defaults.font.family = 'Poppins';
+    Chart.defaults.font.size = 8;
+
+    // 1. RADAR CHART
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Non-Pen Goals', 'npxG', 'xAG', 'Assists', 'SCA', 'PrgP', 'Take-Ons', 'Touches Pen'],
+        datasets: [{
+          label: 'Bukayo Saka',
+          data: [88, 85, 94, 96, 92, 89, 81, 95],
+          backgroundColor: 'rgba(34, 197, 94, 0.25)',
+          borderColor: '#22c55e',
+          borderWidth: 1.5,
+          pointBackgroundColor: '#22c55e',
+          pointRadius: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          r: {
+            grid: { color: '#132338' },
+            angleLines: { color: '#132338' },
+            pointLabels: { color: '#e2e8f0', font: { size: 7.5 } },
+            ticks: { display: false },
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        }
+      }
+    });
+
+    // 2. FORM TREND (LINE CHART - EXACT SNAPSHOT CURVE)
+    const trendCtx = document.getElementById('formTrendChart').getContext('2d');
+    new Chart(trendCtx, {
+      type: 'line',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        datasets: [{
+          label: 'Player Rating',
+          data: [8.1, 7.5, 8.3, 7.5, 7.0, 7.5, 8.5, 7.1, 8.0, 7.8],
+          borderColor: '#22c55e',
+          borderWidth: 1.8,
+          tension: 0.2,
+          pointBackgroundColor: '#22c55e',
+          pointRadius: 2
+        }, {
+          label: 'Team Avg',
+          data: [6.2, 6.0, 6.3, 6.1, 5.8, 6.0, 6.2, 5.8, 6.1, 6.4],
+          borderColor: '#64748b',
+          borderWidth: 1,
+          borderDash: [3, 3],
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#64748b' } },
+          y: { 
+            grid: { color: '#132338' }, 
+            min: 0, 
+            max: 10,
+            ticks: { stepSize: 2.5 }
+          }
+        }
+      }
+    });
+
+    // 3. ROLE & PLAYING TIME EVOLUTION (BAR + LINE DUAL AXIS)
+    const roleCtx = document.getElementById('roleEvolutionChart').getContext('2d');
+    new Chart(roleCtx, {
+      data: {
+        labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [
+          {
+            type: 'line',
+            label: 'Primary Role',
+            data: [500, 680, 580, 520, 690, 830, 800, 860, 830, 830],
+            borderColor: '#ffffff',
+            borderWidth: 2,
+            pointBackgroundColor: '#ffffff',
+            pointRadius: 3,
+            yAxisID: 'y1'
+          },
+          {
+            type: 'bar',
+            label: 'Minutes',
+            data: [680, 770, 750, 880, 730, 600, 430, 710, 620, 620],
+            backgroundColor: '#1d4ed8',
+            borderRadius: 2,
+            barThickness: 12,
+            yAxisID: 'y'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#64748b' } },
+          y: {
+            type: 'linear',
+            position: 'left',
+            grid: { color: '#132338' },
+            min: 0,
+            max: 1000,
+            ticks: { stepSize: 250 }
+          },
+          y1: {
+            type: 'category',
+            position: 'right',
+            labels: ['LW', 'RM', 'RWF', 'RW'],
+            grid: { display: false },
+            ticks: { color: '#64748b' }
+          }
+        }
+      }
+    });
+  </script>
+
+<script src="assets/js/language.js"></script>
+<script src="assets/js/theme.js?v=1"></script>
+</body>
+</html>

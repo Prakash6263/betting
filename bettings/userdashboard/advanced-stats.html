@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link  p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="shared-header-title">ADVANCED STATISTICS</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute " style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+        <div class="shared-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Until 12/31/2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down " style="font-size: 9px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success  border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 " style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down  ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="advanced-stats.html" class="nav-link active">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="match-reports.html" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="watchlist.html" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="settings.html" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="help-support.html" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+<!-- Main Container Content -->
+<main class="main-content" id="mainContent">
+   <!-- 1. TOP HEADER CONTROL BAR -->
+    <div class="dash-card py-2 px-3 mb-2" style="height: auto;">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <div>
+            <span class="top-bar-label">Dataset & Date Range</span>
+            <div class="d-flex align-items-center gap-1">
+              <select class="custom-select-sm"><option>Premier League</option></select>
+              <select class="custom-select-sm"><option>2024/25 Season</option></select>
+              <div class="d-flex align-items-center gap-1 custom-input-sm" style="padding: 3px 8px;">
+                <span>08/01/2024 - 12/01/2025</span>
+                <i class="bi bi-calendar text-muted" style="font-size: 10px;"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="ms-2">
+            <span class="top-bar-label">Comparison Benchmark</span>
+            <select class="custom-select-sm" style="min-width: 180px;"><option>Premier League Average</option></select>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+          <span class="text-muted" style="font-size: 9.5px;">Last updated: 12 min ago <i class="bi bi-arrow-clockwise ms-1" style="cursor: pointer;"></i></span>
+          <div class="d-flex align-items-center gap-2">
+            <div class="top-btn-outline"><i class="bi bi-info-circle"></i> Metric Glossary</div>
+            <div class="top-btn-outline"><i class="bi bi-book"></i> Methodology</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. SECOND ROW: BUILDER, FILTERS, SAVED ANALYSES -->
+    <div class="row g-2 mb-2">
+      
+      <!-- Custom Metric Builder -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Custom Metric Builder <i class="bi bi-info-circle"></i></div>
+          
+          <div class="mb-2">
+            <select class="custom-select-sm w-100"><option>Build a custom metric</option></select>
+          </div>
+
+          <div class="d-flex align-items-center gap-1 mb-3 flex-wrap">
+            <div class="formula-tag-box">
+              <span>xG</span>
+              <i class="bi bi-chevron-down text-muted" style="font-size: 8px;"></i>
+            </div>
+            <span class="text-muted">×</span>
+            <div class="formula-tag-box"><span>0.6</span></div>
+            <span class="text-muted">+</span>
+            <div class="formula-tag-box">
+              <span>Progressive Passes</span>
+              <i class="bi bi-chevron-down text-muted" style="font-size: 8px;"></i>
+            </div>
+            <span class="text-muted">×</span>
+            <div class="formula-tag-box"><span>0.4</span></div>
+            <i class="bi bi-trash text-muted ms-1" style="cursor: pointer;"></i>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between">
+            <button class="top-btn-outline"><i class="bi bi-plus"></i> Add component</button>
+            <button class="btn-green-action">Save Metric</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segmentation Filters -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Segmentation Filters <i class="bi bi-info-circle"></i></div>
+          
+          <div class="row g-1 mb-3">
+            <div class="col-4">
+              <span class="top-bar-label">Phase</span>
+              <select class="custom-select-sm w-100"><option>All Phases</option></select>
+            </div>
+            <div class="col-4">
+              <span class="top-bar-label">Venue</span>
+              <select class="custom-select-sm w-100"><option>All Venues</option></select>
+            </div>
+            <div class="col-4">
+              <span class="top-bar-label">Opponent Strength</span>
+              <select class="custom-select-sm w-100"><option>All Strengths</option></select>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between pt-1">
+            <button class="top-btn-outline"><i class="bi bi-plus"></i> Add Filter</button>
+            <button class="btn border-0 text-muted p-0 d-flex align-items-center gap-1" style="font-size: 10px;">
+              <i class="bi bi-arrow-counterclockwise"></i> Reset Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Saved Analyses -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <div class="dash-card-title mb-0">Saved Analyses <i class="bi bi-info-circle"></i></div>
+            <a href="#" class="text-success text-decoration-none" style="font-size: 9.5px;">View all</a>
+          </div>
+
+          <div class="d-flex flex-column gap-1 mb-2">
+            <div class="d-flex align-items-center justify-content-between py-1 border-bottom border-secondary border-opacity-10">
+              <span class="text-white" style="font-size: 10px;">Home vs Top 6 Analysis</span>
+              <span class="text-muted" style="font-size: 8.5px;">Updated 2 days ago</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between py-1 border-bottom border-secondary border-opacity-10">
+              <span class="text-white" style="font-size: 10px;">Set Piece Impact Deep Dive</span>
+              <span class="text-muted" style="font-size: 8.5px;">Updated 5 days ago</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between py-1">
+              <span class="text-white" style="font-size: 10px;">High Press Effectiveness</span>
+              <span class="text-muted" style="font-size: 8.5px;">Updated 1 week ago</span>
+            </div>
+          </div>
+
+          <span class="top-bar-label">Shareable Link</span>
+          <div class="custom-input-sm d-flex align-items-center justify-content-between py-1">
+            <span class="text-muted text-truncate" style="font-size: 9.5px;">https://myodinsport.com/analysis/7f3a2b1c</span>
+            <i class="bi bi-copy text-muted ms-2" style="cursor: pointer;"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. THIRD ROW: CORRELATION MATRIX, METRIC DISTRIBUTION, SAMPLE SIZE -->
+    <div class="row g-2 mb-2">
+      
+      <!-- Correlation Matrix -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Correlation Matrix <i class="bi bi-info-circle"></i></div>
+          <div class="table-responsive">
+          <table class="matrix-table mt-2">
+            <thead>
+              <tr>
+                <th></th>
+                <th>xG</th>
+                <th>Shots</th>
+                <th>Prog. Passes</th>
+                <th>Possession</th>
+                <th>PPDA</th>
+                <th>xGA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-muted text-start ps-1">xG</td>
+                <td class="c-100">1.00</td>
+                <td class="c-078">0.78</td>
+                <td class="c-062">0.62</td>
+                <td class="c-031">0.31</td>
+                <td class="c-neg-41">-0.41</td>
+                <td class="c-neg-72">-0.72</td>
+              </tr>
+              <tr>
+                <td class="text-muted text-start ps-1">Shots</td>
+                <td class="c-078">0.78</td>
+                <td class="c-100">1.00</td>
+                <td class="c-055">0.55</td>
+                <td class="c-028">0.28</td>
+                <td class="c-neg-38">-0.38</td>
+                <td class="c-neg-65">-0.65</td>
+              </tr>
+              <tr>
+                <td class="text-muted text-start ps-1">Prog. Passes</td>
+                <td class="c-062">0.62</td>
+                <td class="c-055">0.55</td>
+                <td class="c-100">1.00</td>
+                <td class="c-049">0.49</td>
+                <td class="c-neg-29">-0.29</td>
+                <td class="c-neg-54">-0.54</td>
+              </tr>
+              <tr>
+                <td class="text-muted text-start ps-1">Possession</td>
+                <td class="c-031">0.31</td>
+                <td class="c-028">0.28</td>
+                <td class="c-049">0.49</td>
+                <td class="c-100">1.00</td>
+                <td class="c-neg-21">-0.21</td>
+                <td class="c-neg-33">-0.33</td>
+              </tr>
+              <tr>
+                <td class="text-muted text-start ps-1">PPDA</td>
+                <td class="c-neg-41">-0.41</td>
+                <td class="c-neg-38">-0.38</td>
+                <td class="c-neg-29">-0.29</td>
+                <td class="c-neg-21">-0.21</td>
+                <td class="c-100">1.00</td>
+                <td class="c-049" style="background-color: #1a324b;">0.48</td>
+              </tr>
+              <tr>
+                <td class="text-muted text-start ps-1">xGA</td>
+                <td class="c-neg-72">-0.72</td>
+                <td class="c-neg-65">-0.65</td>
+                <td class="c-neg-54">-0.54</td>
+                <td class="c-neg-33">-0.33</td>
+                <td class="c-049" style="background-color: #1a324b;">0.48</td>
+                <td class="c-100">1.00</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <div class="matrix-legend-bar"></div>
+          <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 8px;">
+            <span>-1</span>
+            <span>Pearson correlation coefficient</span>
+            <span>1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metric Distribution Chart -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Metric Distribution: xG per Match <i class="bi bi-info-circle"></i></div>
+          
+          <div class="d-flex align-items-center gap-3 mb-1 text-muted" style="font-size: 8.5px;">
+            <span class="d-flex align-items-center gap-1"><span style="width:8px; height:2px; background:#22c55e; display:inline-block;"></span> Team</span>
+            <span class="d-flex align-items-center gap-1"><span style="width:8px; height:2px; border-top:1px dashed #64748b; display:inline-block;"></span> League Average</span>
+            <span class="d-flex align-items-center gap-1"><span style="width:8px; height:8px; background:#1d4ed8; display:inline-block; border-radius:1px;"></span> All Teams</span>
+          </div>
+
+          <div style="height: 145px; position: relative;">
+            <canvas id="distributionChart"></canvas>
+          </div>
+          <div class="text-center text-muted mt-1" style="font-size: 8px;">Distribution based on 1,520 team matches in Premier League (2024/25)</div>
+        </div>
+      </div>
+
+      <!-- Sample Size & Uncertainty -->
+      <div class="col-lg-4">
+        <div class="dash-card">
+          <div class="dash-card-title">Sample Size & Uncertainty <i class="bi bi-info-circle"></i></div>
+          
+          <div class="row g-2 mb-2">
+            <div class="col-6">
+              <span class="text-muted" style="font-size: 9px;">Sample Size (Matches)</span>
+              <div class="fw-bold text-white fs-4">24</div>
+            </div>
+            <div class="col-6">
+              <span class="text-muted" style="font-size: 9px;">Uncertainty Interval (95%)</span>
+              <div class="fw-bold text-white fs-4">1.84 <span class="text-success fs-6 fw-normal">[1.42 – 2.26]</span></div>
+            </div>
+          </div>
+
+          <span class="text-muted" style="font-size: 9px;">Metric</span>
+          <div class="text-success fw-semibold mb-3" style="font-size: 11px;">xG per Match</div>
+
+          <div class="row g-2 mb-2">
+            <div class="col-6">
+              <span class="text-muted" style="font-size: 9px;">Standard Deviation</span>
+              <div class="fw-semibold text-white" style="font-size: 11px;">0.78</div>
+            </div>
+            <div class="col-6">
+              <span class="text-muted" style="font-size: 9px;">Standard Error</span>
+              <div class="fw-semibold text-white" style="font-size: 11px;">0.17</div>
+            </div>
+          </div>
+
+          <!-- CI Bar Graph Plot -->
+          <div class="ci-plot-container">
+            <div class="ci-line"></div>
+            <div class="ci-dot"></div>
+            <span class="position-absolute text-white fw-bold" style="left: 55%; top: -10px; font-size: 8px; transform: translateX(-50%);">1.84</span>
+          </div>
+
+          <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 8px; padding: 0 5%;">
+            <span>1.0</span>
+            <span>1.5</span>
+            <span>2.0</span>
+            <span>2.5</span>
+            <span>3.0</span>
+          </div>
+          <div class="text-center text-muted mt-1" style="font-size: 8px;">95% Confidence Interval</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. FOURTH ROW: TABLE VIEW, EXPORT, ALERTS -->
+    <div class="row g-2">
+      
+      <!-- Accessible Table View -->
+      <div class="col-lg-8">
+        <div class="dash-card">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="dash-card-title mb-0">Accessible Table View <i class="bi bi-info-circle"></i></div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="text-muted" style="font-size: 9.5px;">Show as table</span>
+              <input type="checkbox" class="form-check-input-custom" checked>
+            </div>
+          </div>
+
+          <table class="accessible-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Team Value</th>
+                <th>League Average</th>
+                <th>Difference</th>
+                <th>Percentile</th>
+                <th>Uncertainty (95%)</th>
+                <th>Sample Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>xG per Match</td>
+                <td>1.84</td>
+                <td>1.53</td>
+                <td class="tag-diff-plus">+0.31</td>
+                <td>72nd</td>
+                <td class="text-muted">[1.42 – 2.26]</td>
+                <td>24</td>
+              </tr>
+              <tr>
+                <td>xGA per Match</td>
+                <td>1.12</td>
+                <td>1.21</td>
+                <td class="tag-diff-minus">-0.09</td>
+                <td>48th</td>
+                <td class="text-muted">[0.83 – 1.41]</td>
+                <td>24</td>
+              </tr>
+              <tr>
+                <td>Shots per Match</td>
+                <td>13.6</td>
+                <td>1.21</td>
+                <td class="tag-diff-plus">+1.5</td>
+                <td>66th</td>
+                <td class="text-muted">[10.2 – 17.0]</td>
+                <td>24</td>
+              </tr>
+              <tr>
+                <td>Possession (%)</td>
+                <td>56.2</td>
+                <td>53.1</td>
+                <td class="tag-diff-plus">+3.1</td>
+                <td>68th</td>
+                <td class="text-muted">[52.1 – 60.3]</td>
+                <td>24</td>
+              </tr>
+              <tr>
+                <td>PPDA</td>
+                <td>9.2</td>
+                <td>10.4</td>
+                <td class="tag-diff-minus">-1.2</td>
+                <td>63rd</td>
+                <td class="text-muted">[7.6 – 10.8]</td>
+                <td>24</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-muted mt-2" style="font-size: 8.5px;">Note: Percentiles compare against all teams in the selected competition.</div>
+        </div>
+      </div>
+
+      <!-- Export & Status Alerts -->
+      <div class="col-lg-4">
+        <div class="row g-2">
+          
+          <!-- Export Options -->
+          <div class="col-12">
+            <div class="dash-card py-2">
+              <div class="dash-card-title mb-2">Export</div>
+              <div class="d-flex align-items-center gap-2">
+                <button class="top-btn-outline"><i class="bi bi-file-earmark-text"></i> Export CSV</button>
+                <button class="top-btn-outline"><i class="bi bi-file-earmark-image"></i> Export PNG</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Status Yellow Box -->
+          <div class="col-12">
+            <div class="card-warning-yellow">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-exclamation-circle text-warning"></i>
+                <strong class="text-warning" style="font-size: 11px;">Data Status</strong>
+              </div>
+              <div class="text-muted" style="font-size: 9px; margin-left: 20px;">
+                Some data is delayed.<br>
+                Last full update: 12 min ago
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculation Error Red Box -->
+          <div class="col-12">
+            <div class="card-error-red">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-x-circle text-danger"></i>
+                <strong class="text-danger" style="font-size: 11px;">Calculation Error</strong>
+              </div>
+              <div class="text-muted mb-2" style="font-size: 9px; margin-left: 20px;">
+                Could not compute Pressing Intensity.<br>
+                Insufficient event data for selected filters.
+              </div>
+              <button class="btn btn-sm border-danger text-danger bg-transparent py-0 px-2" style="font-size: 9px; margin-left: 20px;">View Details</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+</main>
+
+<!-- Interactive Scripts -->
+ <script>
+    Chart.defaults.color = '#64748b';
+    Chart.defaults.font.family = 'Poppins';
+    Chart.defaults.font.size = 8;
+
+    // METRIC DISTRIBUTION DUAL CHART (HISTOGRAM BARS + NORMAL CURVE LINE)
+    const distCtx = document.getElementById('distributionChart').getContext('2d');
+    
+    // Labels representing xG per Match bins
+    const labels = ['0.0', '0.2', '0.4', '0.6', '0.8', '1.0', '1.2', '1.4', '1.6', '1.8', '2.0', '2.2', '2.4', '2.6', '2.8', '3.0', '3.2', '3.4', '3.6', '3.8', '4.0'];
+
+    new Chart(distCtx, {
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            type: 'line',
+            label: 'Team',
+            data: [0, 0.5, 1.5, 3, 5, 8, 12, 15, 14, 12, 9, 6, 4, 2, 1, 0.5, 0.2, 0, 0, 0, 0],
+            borderColor: '#22c55e',
+            borderWidth: 1.5,
+            tension: 0.4,
+            pointRadius: 0,
+            yAxisID: 'y'
+          },
+          {
+            type: 'line',
+            label: 'League Average',
+            data: [0, 0.2, 0.8, 2, 4, 7, 10, 13, 13, 11, 8, 5, 3, 1.5, 0.8, 0.3, 0.1, 0, 0, 0, 0],
+            borderColor: '#64748b',
+            borderWidth: 1,
+            borderDash: [3, 3],
+            tension: 0.4,
+            pointRadius: 0,
+            yAxisID: 'y'
+          },
+          {
+            type: 'bar',
+            label: 'All Teams',
+            data: [0, 0.5, 1.2, 3.5, 5.2, 7.8, 11.5, 14.8, 13.2, 11.8, 8.5, 6.2, 3.8, 2.1, 1.2, 0.6, 0.4, 0.2, 0.1, 0, 0],
+            backgroundColor: '#1d4ed8',
+            barPercentage: 0.9,
+            categoryPercentage: 1.0,
+            yAxisID: 'y'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#64748b' },
+            title: { display: true, text: 'xG per Match', color: '#64748b', font: { size: 8 } }
+          },
+          y: {
+            grid: { color: '#172a45' },
+            min: 0,
+            max: 20,
+            ticks: {
+              stepSize: 5,
+              callback: function(value) { return value + '%'; }
+            },
+            title: { display: true, text: '% of matches', color: '#64748b', font: { size: 8 } }
+          }
+        }
+      },
+      plugins: [{
+        // Custom plugin to draw vertical green line at Team: 1.84
+        id: 'teamMarker',
+        afterDraw: (chart) => {
+          const ctx = chart.ctx;
+          const xAxis = chart.scales.x;
+          const yAxis = chart.scales.y;
+          
+          // Position corresponding to 1.84
+          const xPixel = xAxis.getPixelForValue(9.2);
+          const topY = yAxis.getPixelForValue(18);
+          const bottomY = yAxis.bottom;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(xPixel, topY);
+          ctx.lineTo(xPixel, bottomY);
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = '#22c55e';
+          ctx.stroke();
+
+          // Green dot on top
+          ctx.beginPath();
+          ctx.arc(xPixel, topY, 2.5, 0, 2 * Math.PI);
+          ctx.fillStyle = '#22c55e';
+          ctx.fill();
+
+          // Text label
+          ctx.fillStyle = '#22c55e';
+          ctx.font = 'bold 8px Poppins';
+          ctx.fillText('Team: 1.84', xPixel - 18, topY - 5);
+          ctx.restore();
+        }
+      }]
+    });
+  </script>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/language.js?v=4"></script>
+<script src="assets/js/theme.js?v=1"></script>
+
+</body>
+</html>

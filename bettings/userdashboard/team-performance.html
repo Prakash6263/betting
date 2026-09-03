@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link text-white p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="shared-header-title">TEAM PERFORMANCE</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute text-secondary" style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+        <div class="shared-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Until 12/31/2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down text-secondary" style="font-size: 9px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success bg-opacity-25 border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 text-white" style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down text-secondary ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link active">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+
+   <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+
+<main class="main-content" id="mainContent">
+
+         <!-- TOP UTILITY BAR -->
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+        <div class="d-flex align-items-center gap-2">
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="compareToggle" checked>
+            <label class="form-check-label fw-semibold" for="compareToggle">Compare teams</label>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <div class="filter-box">
+            <i class="bi bi-clock-history text-muted"></i>
+            <div>
+              <div style="font-size: 8px; color: var(--text-muted);">Data freshness</div>
+              <strong style="color: var(--accent-yellow);">1 hour ago</strong>
+            </div>
+          </div>
+          <button class="btn btn-sm text-light border-0" style="background: var(--input-bg); font-size: 11px;">
+            <i class="bi bi-download me-1"></i> Export
+          </button>
+        </div>
+      </div>
+
+      <!-- MATCH TEAMS HEADER & GLOBAL FILTERS -->
+      <div class="row g-2 mb-2">
+        <div class="col-md-4">
+          <div class="dashboard-card mb-3 d-flex align-items-center justify-content-between p-2">
+            <div class="d-flex align-items-center gap-2 w-45">
+              <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" class="team-logo-sm" alt="Arsenal">
+              <strong>Arsenal</strong>
+            </div>
+            <span class="text-muted">vs</span>
+            <div class="d-flex align-items-center gap-2 justify-content-end w-45">
+              <strong>Chelsea</strong>
+              <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" class="team-logo-sm" alt="Chelsea">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="d-flex gap-2 h-100 align-items-center">
+            <div class="filter-box flex-grow-1">
+              <i class="bi bi-calendar3 text-muted"></i>
+              <div class="w-100">
+                <div style="font-size: 8px; color: var(--text-muted);">Date range</div>
+                <select><option>Last 20 matches</option></select>
+              </div>
+            </div>
+            <div class="filter-box flex-grow-1">
+              <i class="bi bi-trophy text-muted"></i>
+              <div class="w-100">
+                <div style="font-size: 8px; color: var(--text-muted);">Competition</div>
+                <select><option>All competitions</option></select>
+              </div>
+            </div>
+            <div class="filter-box flex-grow-1">
+              <i class="bi bi-geo-alt text-muted"></i>
+              <div class="w-100">
+                <div style="font-size: 8px; color: var(--text-muted);">Venue</div>
+                <select><option>All (Home & Away)</option></select>
+              </div>
+            </div>
+            <div class="filter-box flex-grow-1">
+              <i class="bi bi-bar-chart text-muted"></i>
+              <div class="w-100">
+                <div style="font-size: 8px; color: var(--text-muted);">Opponent strength</div>
+                <select><option>All</option></select>
+              </div>
+            </div>
+            <button class="btn btn-sm text-light" style="background: var(--input-bg); border: 1px solid var(--card-border); font-size: 10.5px;">
+              <i class="bi bi-sliders me-1"></i> Advanced filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN COMPARISON TABLE (USING CUSTOM CLASS .sports-analytics-table) -->
+      <div class="dashboard-card mb-3 mb-2 p-2">
+        <div class="table-responsive">
+          <table class="sports-analytics-table">
+            <thead>
+              <tr>
+                <th class="text-start">Team</th>
+                <th>Points per match</th>
+                <th>Goals per match</th>
+                <th>xG per match</th>
+                <th>xGA per match</th>
+                <th>Goal difference</th>
+                <th>Form (last 5)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-start">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" class="team-logo-sm me-1" alt="">
+                  <strong>Arsenal</strong> <span class="text-muted" style="font-size: 9px;">Last 20 matches</span>
+                </td>
+                <td><span class="fw-bold fs-6">2.10</span> <span class="rank-tag rank-1st">1st</span></td>
+                <td><span class="fw-bold fs-6">2.05</span> <span class="rank-tag rank-1st">1st</span></td>
+                <td><span class="fw-bold fs-6">1.98</span> <span class="rank-tag rank-2nd">2nd</span></td>
+                <td><span class="fw-bold fs-6">0.92</span> <span class="rank-tag rank-2nd">2nd</span></td>
+                <td class="text-success fw-bold fs-6">+22</td>
+                <td>
+                  <div class="d-flex justify-content-center gap-1">
+                    <span class="form-badge form-w">W</span>
+                    <span class="form-badge form-w">W</span>
+                    <span class="form-badge form-w">W</span>
+                    <span class="form-badge form-d">D</span>
+                    <span class="form-badge form-w">W</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-start">
+                  <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" class="team-logo-sm me-1" alt="">
+                  <strong>Chelsea</strong> <span class="text-muted" style="font-size: 9px;">Last 20 matches</span>
+                </td>
+                <td><span class="fw-bold fs-6">1.50</span> <span class="rank-tag text-muted">6th</span></td>
+                <td><span class="fw-bold fs-6">1.40</span> <span class="rank-tag text-muted">8th</span></td>
+                <td><span class="fw-bold fs-6">1.48</span> <span class="rank-tag text-muted">7th</span></td>
+                <td><span class="fw-bold fs-6">1.26</span> <span class="rank-tag text-muted">7th</span></td>
+                <td class="text-success fw-bold fs-6">+3</td>
+                <td>
+                  <div class="d-flex justify-content-center gap-1">
+                    <span class="form-badge form-w">W</span>
+                    <span class="form-badge form-l">L</span>
+                    <span class="form-badge form-d">D</span>
+                    <span class="form-badge form-l">L</span>
+                    <span class="form-badge form-w">W</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MIDDLE GRID SECTION -->
+      <div class="row g-2 mb-3">
+        <!-- Performance Trend Chart -->
+         <div class="col-md-4">
+          <div class="dashboard-card h-100">
+            <div class="card-title-sm">Performance trend <span class="text-muted fw-normal">(last 20 matches)</span></div>
+            <div style="height: 155px; position: relative;">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home vs Away Performance Table -->
+         <div class="col-md-4">
+          <div class="dashboard-card  h-100">
+            <div class="card-title-sm">Home vs Away performance</div>
+            <div class="table-responsive">
+              <table class="sports-analytics-table">
+                <thead>
+                  <tr>
+                    <th class="text-start">Metric</th>
+                    <th colspan="3">Arsenal</th>
+                    <th colspan="3">Chelsea</th>
+                  </tr>
+                  <tr style="font-size: 8px; color: var(--text-muted);">
+                    <th></th>
+                    <th>Home</th><th>Away</th><th>Diff</th>
+                    <th>Home</th><th>Away</th><th>Diff</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-start text-muted">Points per match</td>
+                    <td>2.25</td><td>1.94</td><td class="diff-pos">+0.31</td>
+                    <td>1.80</td><td>1.20</td><td class="diff-pos">+0.60</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start text-muted">Goals per match</td>
+                    <td>2.25</td><td>1.84</td><td class="diff-pos">+0.41</td>
+                    <td>1.60</td><td>1.20</td><td class="diff-pos">+0.40</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start text-muted">xG per match</td>
+                    <td>2.12</td><td>1.83</td><td class="diff-pos">+0.29</td>
+                    <td>1.62</td><td>1.33</td><td class="diff-pos">+0.29</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start text-muted">xGA per match</td>
+                    <td>0.78</td><td>1.08</td><td class="diff-neg">-0.30</td>
+                    <td>1.04</td><td>1.52</td><td class="diff-neg">-0.48</td>
+                  </tr>
+                  <tr>
+                    <td class="text-start text-muted">Clean sheet %</td>
+                    <td>50%</td><td>44%</td><td class="diff-pos">+6pp</td>
+                    <td>40%</td><td>24%</td><td class="diff-pos">+16pp</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Strength -->
+       <div class="col-md-4">
+          <div class="dashboard-card h-100">
+            <div class="card-title-sm">Schedule strength <span class="text-muted fw-normal">(next 6 matches)</span></div>
+            <div class="table-responsive">
+              <table class="sports-analytics-table">
+                <thead>
+                  <tr>
+                    <th class="text-start">Team</th>
+                    <th>Avg. Opp. Rating <i class="bi bi-info-circle"></i></th>
+                    <th>Home</th>
+                    <th>Away</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-start">
+                      <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" class="team-logo-sm me-1" alt=""> Arsenal
+                    </td>
+                    <td><strong>3.2</strong> <span class="text-warning" style="font-size: 10px;">(Moderate)</span></td>
+                    <td>3 <span class="dot-indicator bg-warning"></span></td>
+                    <td>3 <span class="dot-indicator bg-warning"></span><span class="dot-indicator bg-warning"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="text-start">
+                      <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" class="team-logo-sm me-1" alt=""> Chelsea
+                    </td>
+                    <td><strong>4.1</strong> <span class="text-danger" style="font-size: 10px;">(Challenging)</span></td>
+                    <td>2 <span class="dot-indicator bg-success"></span></td>
+                    <td>4 <span class="dot-indicator bg-danger"></span><span class="dot-indicator bg-danger"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM FOUR-COLUMN GRID -->
+      <div class="row g-2 mb-3">
+        <!-- Injuries & Suspensions -->
+        <div class="col-md-3">
+          <div class="dashboard-card h-100">
+            <div class="card-title-sm">Injuries & suspensions</div>
+            
+            <div class="d-flex gap-2 mb-2">
+              <button class="btn btn-sm btn-outline-danger active w-50 py-0" style="font-size: 9.5px;">Arsenal</button>
+              <button class="btn btn-sm btn-outline-secondary w-50 py-0" style="font-size: 9.5px;">Chelsea</button>
+            </div>
+
+            <div class="d-flex flex-column gap-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Bukayo Saka</strong>
+                  <div class="text-muted" style="font-size: 10px;">Winger</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-danger" style="font-size: 7.5px;">Out</span>
+                  <div class="text-muted" style="font-size: 8px;">May 20, 2025</div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Takehiro Tomiyasu</strong>
+                  <div class="text-muted" style="font-size: 10px;">Defender</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-danger" style="font-size: 7.5px;">Out</span>
+                  <div class="text-muted" style="font-size: 8px;">May 25, 2025</div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Mohammed Elneny</strong>
+                  <div class="text-muted" style="font-size: 10px;">Midfielder</div>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-warning text-dark" style="font-size: 7.5px;">Doubtful</span>
+                  <div class="text-muted" style="font-size: 8px;">May 15, 2025</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Lineup Continuity -->
+        <div class="col-md-3">
+          <div class="dashboard-card  h-100">
+            <div class="card-title-sm">Lineup continuity <span class="text-muted fw-normal">(last 20 matches)</span></div>
+            
+            <div class="text-muted mb-1" style="font-size: 10px;">Avg. starting XI changes</div>
+            <div class="d-flex justify-content-between mb-2">
+              <div><strong class="fs-6">2.4</strong> <span class="text-success" style="font-size: 10px;">Low</span></div>
+              <div><strong class="fs-6">3.6</strong> <span class="text-warning" style="font-size: 10px;">Moderate</span></div>
+            </div>
+
+            <div class="text-muted mb-1" style="font-size: 10px;">Most used formation</div>
+            <div class="d-flex justify-content-between mb-2">
+              <div><strong>4-3-3</strong> <span class="text-muted">70%</span></div>
+              <div><strong>4-2-3-1</strong> <span class="text-muted">45%</span></div>
+            </div>
+
+            <div class="text-muted mb-1" style="font-size: 10px;">Lineup stability</div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="dot-indicator bg-success me-1"></span>
+                <span class="dot-indicator bg-success me-1"></span>
+                <span class="dot-indicator bg-success me-1"></span>
+                <span class="dot-indicator bg-success"></span>
+              </div>
+              <div>
+                <span class="dot-indicator bg-warning me-1"></span>
+                <span class="dot-indicator bg-warning me-1"></span>
+                <span class="dot-indicator bg-warning me-1"></span>
+                <span class="dot-indicator bg-secondary"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formation Usage -->
+       <div class="col-md-3">
+          <div class="dashboard-card h-100">
+            <div class="card-title-sm">Formation usage <span class="text-muted fw-normal">(last 20 matches)</span></div>
+            
+            <div class="d-flex flex-column gap-2">
+              <div>
+                <div class="d-flex justify-content-between text-muted" style="font-size: 10px;">
+                  <span>4-3-3</span>
+                  <span>70% (14) &nbsp;|&nbsp; 25% (5)</span>
+                </div>
+                <div class="progress-custom d-flex mt-1">
+                  <div class="bg-danger" style="width: 70%;"></div>
+                  <div class="bg-primary ms-auto" style="width: 25%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="d-flex justify-content-between text-muted" style="font-size: 10px;">
+                  <span>4-2-3-1</span>
+                  <span>15% (3) &nbsp;|&nbsp; 45% (9)</span>
+                </div>
+                <div class="progress-custom d-flex mt-1">
+                  <div class="bg-danger" style="width: 15%;"></div>
+                  <div class="bg-primary ms-auto" style="width: 45%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="d-flex justify-content-between text-muted" style="font-size: 10px;">
+                  <span>3-4-3</span>
+                  <span>10% (2) &nbsp;|&nbsp; 15% (3)</span>
+                </div>
+                <div class="progress-custom d-flex mt-1">
+                  <div class="bg-danger" style="width: 10%;"></div>
+                  <div class="bg-primary ms-auto" style="width: 15%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="d-flex justify-content-between text-muted" style="font-size: 10px;">
+                  <span>Other</span>
+                  <span>5% (1) &nbsp;|&nbsp; 15% (3)</span>
+                </div>
+                <div class="progress-custom d-flex mt-1">
+                  <div class="bg-danger" style="width: 5%;"></div>
+                  <div class="bg-primary ms-auto" style="width: 15%;"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Head-to-Head -->
+        <div class="col-md-3">
+          <div class="dashboard-card text-center h-100">
+            <div class="card-title-sm text-start">Head-to-head <span class="text-muted fw-normal">(last 10 meetings)</span></div>
+            
+            <div class="d-flex justify-content-center gap-1 mb-2">
+              <span class="badge bg-secondary" style="font-size: 8px;">All</span>
+              <span class="badge text-muted" style="font-size: 8px;">Home (Arsenal)</span>
+              <span class="badge text-muted" style="font-size: 8px;">Home (Chelsea)</span>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-around mb-2">
+              <div>
+                <img src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg" class="team-logo-sm mb-1" alt=""><br>
+                <strong class="fs-5 text-success">4</strong><br>
+                <span class="text-muted" style="font-size: 10px;">Wins</span>
+              </div>
+              <div>
+                <strong class="fs-5 text-light">2</strong><br>
+                <span class="text-muted" style="font-size: 10px;">Draws</span>
+              </div>
+              <div>
+                <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg" class="team-logo-sm mb-1" alt=""><br>
+                <strong class="fs-5 text-primary">4</strong><br>
+                <span class="text-muted" style="font-size: 10px;">Wins</span>
+              </div>
+            </div>
+
+            <div class="progress-custom d-flex">
+              <div class="bg-danger" style="width: 40%;"></div>
+              <div class="bg-secondary" style="width: 20%;"></div>
+              <div class="bg-primary" style="width: 40%;"></div>
+            </div>
+            <div class="d-flex justify-content-between text-muted mt-1" style="font-size: 10px;">
+              <span>16</span>
+              <span>16</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER SAMPLE SIZE WARNING -->
+      <div class="warning-banner">
+        <div class="row align-items-center">
+          <div class="col-md-5 d-flex align-items-center gap-2">
+            <i class="bi bi-exclamation-triangle text-warning fs-5"></i>
+            <div>
+              <strong class="text-warning" style="font-size: 11px;">Sample size warning</strong>
+              <div class="text-muted" style="font-size: 9.5px;">The selected date range includes a limited number of matches for one or both teams. Interpret trends with caution.</div>
+            </div>
+          </div>
+          <div class="col-md-3 border-start border-secondary px-3">
+            <div class="d-flex justify-content-between">
+              <span>Arsenal: <strong>20 matches</strong></span>
+              <span>Chelsea: <strong>20 matches</strong></span>
+            </div>
+            <div class="text-muted" style="font-size: 10px;">Recommended: 20+ matches</div>
+          </div>
+          <div class="col-md-4 border-start border-secondary px-3">
+            <div class="text-muted" style="font-size: 10px;"><i class="bi bi-clock me-1"></i> Data freshness: <span class="text-success">1 hour ago</span></div>
+            <div class="text-muted" style="font-size: 10px;"><i class="bi bi-arrow-repeat me-1"></i> Next update: <span class="text-warning">In 59 minutes</span></div>
+          </div>
+        </div>
+      </div>
+
+
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- CHARTS INITIALIZATION -->
+<script>
+    // Sidebar Toggle
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('expanded');
+    });
+
+    // Trend Chart Setup
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Match -19', '-15', '-10', '-5', 'Last'],
+        datasets: [
+          {
+            label: 'Arsenal xG',
+            data: [1.8, 2.1, 1.9, 2.2, 2.3],
+            borderColor: '#ff4d4d',
+            borderWidth: 1.5,
+            pointRadius: 2,
+            tension: 0.2
+          },
+          {
+            label: 'Arsenal xGA',
+            data: [1.2, 1.4, 1.1, 1.3, 1.0],
+            borderColor: '#ff4d4d',
+            borderWidth: 1.5,
+            borderDash: [3, 3],
+            pointRadius: 0,
+            tension: 0.2
+          },
+          {
+            label: 'Chelsea xG',
+            data: [0.9, 1.2, 1.1, 1.4, 1.5],
+            borderColor: '#29b6f6',
+            borderWidth: 1.5,
+            pointRadius: 2,
+            tension: 0.2
+          },
+          {
+            label: 'Chelsea xGA',
+            data: [1.5, 1.6, 1.4, 1.3, 1.2],
+            borderColor: '#29b6f6',
+            borderWidth: 1.5,
+            borderDash: [3, 3],
+            pointRadius: 0,
+            tension: 0.2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: {
+            grid: { color: '#141e33' },
+            ticks: { color: '#6c7d93', font: { size: 8.5 } }
+          },
+          y: {
+            min: 0.0,
+            max: 2.5,
+            grid: { color: '#141e33' },
+            ticks: { color: '#6c7d93', font: { size: 8.5 } }
+          }
+        }
+      }
+    });
+  </script>
+
+<script src="assets/js/language.js"></script>
+<script src="assets/js/theme.js?v=1"></script>
+</body>
+</html>

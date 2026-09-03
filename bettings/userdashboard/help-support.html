@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link  p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute " style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down " style="font-size: 9px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success  border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 " style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down  ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link active">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="advanced-stats.html" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="match-reports.html" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="watchlist.html" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="settings.html" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="help-support.html" class="nav-link active">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+	<main class="main-content" id="mainContent">
+		<section class="hero-banner-card mb-4">
+			<span class="sport-kicker"><i class="fa-solid fa-circle-question"></i> SUPPORT CENTRE</span>
+			<h1 class="page-title mt-2 mb-1">Help &amp; Support</h1>
+			<p class="mb-0 text-white">Find answers or contact the Football Intelligence team.</p>
+		</section>
+		<div class="row g-3">
+			<div class="col-lg-7">
+				<div class="panel-card">
+					<h2 class="panel-title mb-3">Frequently asked questions</h2>
+					<details class="p-3 border-bottom">
+						<summary class="fw-semibold">
+							How are model probabilities calculated?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Our models blend team form, injury updates, player matchups, bookie odds and real-time market signals for every prediction.</p>
+					</details>
+					<details class="p-3 border-bottom">
+						<summary class="fw-semibold">
+							How do I change my notification preferences?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Go to Settings to enable or disable alerts for live matches, market events, and strategy updates.</p>
+					</details>
+					<details class="p-3 border-bottom">
+						<summary class="fw-semibold">
+							What should I do if I forget my password?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Use the reset link on the login page, or contact support if your account email is not recognized.</p>
+					</details>
+					<details class="p-3 border-bottom">
+						<summary class="fw-semibold">
+							How can I request a new feature?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Send us a ticket or email support with your idea—we review feature requests weekly.</p>
+					</details>
+					<details class="p-3 border-bottom">
+						<summary class="fw-semibold">
+							How do I add a fixture to my watchlist?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Open a match and select the star icon next to the fixture.</p>
+					</details>
+					<details class="p-3">
+						<summary class="fw-semibold">
+							When is market data refreshed?
+						</summary>
+						<p class="text-secondary mb-0 mt-2">Live market signals refresh continuously while an event is active.</p>
+					</details>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="panel-card">
+					<h2 class="panel-title mb-1">Need more help?</h2>
+					<p class="panel-sub mb-3">If you need urgent assistance with your account, data access, or platform settings, we’re here to help.</p><a class="btn btn-success mb-3" href="mailto:support@footballintelligence.com"><i class="fa-solid fa-envelope me-2"></i>Email support</a>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+	</script>
+	<script src="assets/js/language.js">
+	</script>
+	<script src="assets/js/theme.js?v=1">
+	</script>
+	<script>
+	document.getElementById('sidebarToggle').onclick=()=>{sidebar.classList.toggle('collapsed');mainContent.classList.toggle('expanded')}
+	</script>
+</body>
+</html>

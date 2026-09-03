@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet"> 
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link  p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="shared-header-title">MATCH REPORTS</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute " style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+        <div class="shared-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Until 12/31/2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down " style="font-size: 10px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item  small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 10px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success  border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 " style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down  ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item  small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+         <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="advanced-stats.html" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="match-reports.html" class="nav-link active">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="watchlist.html" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="settings.html" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="help-support.html" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+<!-- Main Container Content -->
+<main class="main-content" id="mainContent">
+  <!-- 1. TOP CONTROL & FILTER HEADER -->
+    <div class="dash-card py-2 px-3 mb-2" style="height: auto;">
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <div class="top-subtext">Search, analyze and manage your generated match reports</div>
+        <a href="#" class="text-primary text-decoration-none" style="font-size: 10px;">Clear filters</a>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="d-flex align-items-center custom-input" style="width: 180px;">
+          <input type="text" class="bg-transparent border-0 text-white p-0 w-100" style="font-size: 10px; outline:none;" placeholder="Search reports...">
+          <i class="bi bi-search text-muted ms-1" style="font-size: 10px;"></i>
+        </div>
+
+        <select class="custom-select" style="min-width: 110px;"><option>Football</option></select>
+        <select class="custom-select" style="min-width: 130px;"><option>Premier League</option></select>
+        <select class="custom-select" style="min-width: 120px;"><option>All teams</option></select>
+
+        <div class="d-flex align-items-center justify-content-between custom-input" style="min-width: 170px;">
+          <span>04/20/2025 - 05/20/2025</span>
+          <i class="bi bi-calendar text-muted" style="font-size: 10px;"></i>
+        </div>
+
+        <select class="custom-select" style="min-width: 100px;"><option>All types</option></select>
+        <select class="custom-select" style="min-width: 110px;"><option>All statuses</option></select>
+
+        <button class="top-btn-outline ms-auto">
+          <i class="bi bi-arrow-clockwise"></i> Reset filters
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <div class="row g-2">
+
+      <!-- LEFT SIDEBAR: REPORTS LIST -->
+      <div class="col-lg-3">
+        <div class="dash-card d-flex flex-column justify-content-between" style="min-height: 520px;">
+          <div>
+            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+              <span class="fw-semibold text-white" style="font-size: 10.5px;">REPORTS (28)</span>
+              <div class="d-flex align-items-center gap-1">
+                <select class="custom-select py-0" style="font-size: 10px; height: 20px;">
+                  <option>Newest first</option>
+                </select>
+                <i class="bi bi-arrow-clockwise text-muted ms-1" style="cursor: pointer;"></i>
+              </div>
+            </div>
+
+            <!-- List Items -->
+            <div class="report-item active d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check" checked>
+              <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Arsenal vs Chelsea</span>
+                  <span class="fw-bold text-white">1 - 1</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/18/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-published">Published</span>
+                    <span class="text-muted">v2.1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/50.png" alt="Man City" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Man City vs Newcastle</span>
+                  <span class="fw-bold text-white">2 - 0</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/17/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-published">Published</span>
+                    <span class="text-muted">v1.0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/40.png" alt="Liverpool" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Liverpool vs Brighton</span>
+                  <span class="fw-bold text-white">2 - 1</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/17/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-published">Published</span>
+                    <span class="text-muted">v1.0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/66.png" alt="Aston Villa" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Aston Villa vs Tottenham</span>
+                  <span class="fw-bold text-white">0 - 2</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/16/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-draft">Draft</span>
+                    <span class="text-muted">v0.9</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/33.png" alt="Man United" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Man United vs West Ham</span>
+                  <span class="fw-bold text-white">0 - 1</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/16/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-corrected">Corrected</span>
+                    <span class="text-muted">v1.2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/45.png" alt="Everton" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Everton vs Bournemouth</span>
+                  <span class="fw-bold text-white">1 - 1</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/15/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-published">Published</span>
+                    <span class="text-muted">v1.0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="report-item d-flex align-items-center gap-2">
+              <input type="checkbox" class="custom-check">
+              <img src="https://media.api-sports.io/football/teams/39.png" alt="Wolves" class="team-logo-sm">
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold text-white">Wolves vs Crystal Palace</span>
+                  <span class="fw-bold text-white">0 - 0</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between text-muted mt-1" style="font-size: 8.5px;">
+                  <span>Premier League • 05/15/2025</span>
+                  <div class="d-flex align-items-center gap-1">
+                    <span class="badge-status badge-failed">Failed</span>
+                    <i class="bi bi-exclamation-circle text-danger" style="font-size: 10px;"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="d-flex align-items-center justify-content-between pt-2 border-top border-secondary border-opacity-10 text-muted" style="font-size: 8.5px;">
+            <span>Showing 1 to 7 of 28 reports</span>
+            <div class="d-flex align-items-center gap-1">
+              <i class="bi bi-chevron-left"></i>
+              <div class="page-box active">1</div>
+              <div class="page-box">2</div>
+              <div class="page-box">3</div>
+              <div class="page-box">4</div>
+              <i class="bi bi-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: MATCH REPORT MAIN DISPLAY WITH BOOTSTRAP TABS -->
+      <div class="col-lg-6">
+        <div class="dash-card">
+          
+          <!-- Header Banner -->
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal Logo" class="team-logo-lg">
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <span class="fw-bold fs-6 text-white">Arsenal vs Chelsea</span>
+                  <span class="fw-bold fs-5 text-white ms-1">1 - 1</span>
+                </div>
+                <div class="text-muted" style="font-size: 8.5px;">Premier League • 05/18/2025 • Emirates Stadium, London</div>
+              </div>
+              <img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea Logo" class="team-logo-lg">
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge-status badge-published py-1 px-2">Published</span>
+              <select class="custom-select py-0" style="height: 22px; font-size: 10px;"><option>v2.1</option></select>
+            </div>
+          </div>
+
+          <!-- Dynamic Tabs Header -->
+          <ul class="nav custom-nav-tabs mb-3" id="matchReportTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary-tab-pane" type="button" role="tab">Executive Summary</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline-tab-pane" type="button" role="tab">Timeline</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats-tab-pane" type="button" role="tab">Key Statistics</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="sources-tab" data-bs-toggle="tab" data-bs-target="#sources-tab-pane" type="button" role="tab">Data Sources</button>
+            </li>
+          </ul>
+
+          <!-- Dynamic Tab Content Wrapper -->
+          <div class="tab-content" id="matchReportTabsContent">
+            
+            <!-- TAB 1: EXECUTIVE SUMMARY -->
+            <div class="tab-pane fade show active" id="summary-tab-pane" role="tabpanel" tabindex="0">
+              <div class="row g-2">
+                <div class="col-md-7">
+                  <div class="fw-semibold text-white mb-2" style="font-size: 11px;">Executive Summary</div>
+                  <p class="text-muted" style="font-size: 10px; line-height: 1.5;">
+                    Arsenal and Chelsea played to a 1-1 draw in a closely contested match. Arsenal dominated possession (58%) and created more chances, while Chelsea were more efficient on the counter. The result keeps both teams in the top 6 race.
+                  </p>
+                  <ul class="text-muted ps-3 mb-0" style="font-size: 10px; line-height: 1.6;">
+                    <li>Arsenal opened the scoring in the 22nd minute through Bukayo Saka.</li>
+                    <li>Chelsea equalized in the 45+2' via Cole Palmer.</li>
+                    <li>Possession advantage for Arsenal (58%) but similar xG (1.48 vs 1.31).</li>
+                  </ul>
+                </div>
+
+                <div class="col-md-5">
+                    <div style="border: 1px solid #173148; padding:10px">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="fw-semibold text-white" style="font-size: 10px;">Key Statistics</span>
+                    <div class="d-flex gap-2 align-items-center">
+                      <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal" class="team-logo-xs">
+                      <img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea" class="team-logo-xs">
+                    </div>
+                  </div>
+
+                  <table class="stats-table text-muted">
+                    <tbody>
+                      <tr>
+                        <td>Possession</td>
+                        <td class="text-end text-danger fw-semibold">58%</td>
+                        <td class="text-end text-primary fw-semibold">42%</td>
+                      </tr>
+                      <tr>
+                        <td>Expected Goals (xG)</td>
+                        <td class="text-end text-danger fw-semibold">1.48</td>
+                        <td class="text-end text-primary fw-semibold">1.31</td>
+                      </tr>
+                      <tr>
+                        <td>Total Shots</td>
+                        <td class="text-end text-danger fw-semibold">15</td>
+                        <td class="text-end text-primary fw-semibold">9</td>
+                      </tr>
+                      <tr>
+                        <td>Shots on Target</td>
+                        <td class="text-end text-danger fw-semibold">5</td>
+                        <td class="text-end text-primary fw-semibold">4</td>
+                      </tr>
+                      <tr>
+                        <td>Big Chances</td>
+                        <td class="text-end text-danger fw-semibold">3</td>
+                        <td class="text-end text-primary fw-semibold">2</td>
+                      </tr>
+                      <tr>
+                        <td>Passes Completed</td>
+                        <td class="text-end text-danger fw-semibold">474</td>
+                        <td class="text-end text-primary fw-semibold">312</td>
+                      </tr>
+                      <tr>
+                        <td>Tackles Won</td>
+                        <td class="text-end text-danger fw-semibold">18</td>
+                        <td class="text-end text-primary fw-semibold">16</td>
+                      </tr>
+                      <tr>
+                        <td>Fouls Committed</td>
+                        <td class="text-end text-danger fw-semibold">11</td>
+                        <td class="text-end text-primary fw-semibold">13</td>
+                      </tr>
+                      <tr>
+                        <td>Corners</td>
+                        <td class="text-end text-danger fw-semibold">6</td>
+                        <td class="text-end text-primary fw-semibold">3</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+                </div>
+              </div>
+
+              <!-- EXACT MATCHED TIMELINE SECTION (IMAGE MATCHED) -->
+              <div class="mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-semibold text-white" style="font-size: 11px;">Timeline</span>
+                  <i class="bi bi-arrows-angle-expand text-muted" style="font-size: 10px; cursor: pointer;"></i>
+                </div>
+
+                <div class="mrd-timeline-wrapper">
+                  <!-- Event Cards Header Row -->
+                  <div class="mrd-timeline-grid">
+                    <!-- Event 1: Arsenal Goal -->
+                    <div class="mrd-timeline-card">
+                      <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal" class="mrd-timeline-logo">
+                      <div class="mrd-timeline-card-info">
+                        <div class="mrd-timeline-time">22'</div>
+                        <div class="mrd-timeline-type">Goal</div>
+                        <div class="mrd-timeline-player">B. Saka</div>
+                      </div>
+                    </div>
+
+                    <!-- Event 2: Chelsea Goal -->
+                    <div class="mrd-timeline-card">
+                      <img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea" class="mrd-timeline-logo">
+                      <div class="mrd-timeline-card-info">
+                        <div class="mrd-timeline-time">45+2'</div>
+                        <div class="mrd-timeline-type">Goal</div>
+                        <div class="mrd-timeline-player">C. Palmer</div>
+                      </div>
+                    </div>
+
+                    <!-- Event 3: Yellow Card Ødegaard -->
+                    <div class="mrd-timeline-card">
+                      <div class="mrd-timeline-icon-box mrd-timeline-icon-yellow"></div>
+                      <div class="mrd-timeline-card-info">
+                        <div class="mrd-timeline-time">63'</div>
+                        <div class="mrd-timeline-type">Yellow Card</div>
+                        <div class="mrd-timeline-player">M. Ødegaard</div>
+                      </div>
+                    </div>
+
+                    <!-- Event 4: Substitution Sterling -->
+                    <div class="mrd-timeline-card">
+                      <div class="mrd-timeline-sub-arrows">
+                        <i class="bi bi-arrow-left text-success"></i>
+                        <i class="bi bi-arrow-right text-danger"></i>
+                      </div>
+                      <div class="mrd-timeline-card-info">
+                        <div class="mrd-timeline-time">78'</div>
+                        <div class="mrd-timeline-type">Substitution</div>
+                        <div class="mrd-timeline-player">R. Sterling</div>
+                      </div>
+                    </div>
+
+                    <!-- Event 5: Yellow Card Caicedo -->
+                    <div class="mrd-timeline-card">
+                      <div class="mrd-timeline-icon-box mrd-timeline-icon-yellow"></div>
+                      <div class="mrd-timeline-card-info">
+                        <div class="mrd-timeline-time">90+4'</div>
+                        <div class="mrd-timeline-type">Yellow Card</div>
+                        <div class="mrd-timeline-player">M. Caicedo</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Axis Line with Nodes -->
+                  <div class="mrd-timeline-axis-line">
+                    <div class="mrd-timeline-node" style="left: 6%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                    <div class="mrd-timeline-node" style="left: 24%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-green"></div></div>
+                    <div class="mrd-timeline-node" style="left: 40%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                    <div class="mrd-timeline-node" style="left: 42%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                    <div class="mrd-timeline-node" style="left: 59%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-green"></div></div>
+                    <div class="mrd-timeline-node" style="left: 67%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                    <div class="mrd-timeline-node" style="left: 81%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-yellow"></div></div>
+                  </div>
+
+                  <!-- Ticks and Time Labels -->
+                  <div class="mrd-timeline-labels-row">
+                    <span>0'</span>
+                    <span>15'</span>
+                    <span>30'</span>
+                    <span>HT</span>
+                    <span>60'</span>
+                    <span>75'</span>
+                    <span>FT</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EXACT MATCHED DATA SOURCES SECTION -->
+              <div class="mt-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="fw-semibold text-white" style="font-size: 11px;">Data Sources</span>
+                  <a href="#" class="text-primary text-decoration-none" style="font-size: 9.5px;">View all sources (8)</a>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col-6 col-md-3">
+                    <div class="source-card">
+                      <div class="fw-semibold text-white" style="font-size: 9.5px;">Opta Feed</div>
+                      <div class="text-muted mb-2" style="font-size: 8px;">Match data & events</div>
+                      <span class="badge-status badge-published py-0 px-1" style="font-size: 7.5px;">Trusted</span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="source-card">
+                      <div class="fw-semibold text-white" style="font-size: 9.5px;">Opta Lineups</div>
+                      <div class="text-muted mb-2" style="font-size: 8px;">Starting XI & subs</div>
+                      <span class="badge-status badge-published py-0 px-1" style="font-size: 7.5px;">Trusted</span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="source-card">
+                      <div class="fw-semibold text-white" style="font-size: 9.5px;">Myodin DB</div>
+                      <div class="text-muted mb-2" style="font-size: 8px;">Historical statistics</div>
+                      <span class="badge-status badge-published py-0 px-1" style="font-size: 7.5px;">Trusted</span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <div class="source-card">
+                      <div class="fw-semibold text-white" style="font-size: 9.5px;">Market Feed</div>
+                      <div class="text-muted mb-2" style="font-size: 8px;">Odds & market data</div>
+                      <span class="badge-status badge-corrected py-0 px-1" style="font-size: 7.5px;">Medium</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 2: TIMELINE ONLY -->
+            <div class="tab-pane fade" id="timeline-tab-pane" role="tabpanel" tabindex="0">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-semibold text-white" style="font-size: 11px;">Timeline Detailed View</span>
+              </div>
+              <div class="mrd-timeline-wrapper">
+                <div class="mrd-timeline-grid">
+                  <div class="mrd-timeline-card">
+                    <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal" class="mrd-timeline-logo">
+                    <div class="mrd-timeline-card-info">
+                      <div class="mrd-timeline-time">22'</div>
+                      <div class="mrd-timeline-type">Goal</div>
+                      <div class="mrd-timeline-player">B. Saka</div>
+                    </div>
+                  </div>
+                  <div class="mrd-timeline-card">
+                    <img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea" class="mrd-timeline-logo">
+                    <div class="mrd-timeline-card-info">
+                      <div class="mrd-timeline-time">45+2'</div>
+                      <div class="mrd-timeline-type">Goal</div>
+                      <div class="mrd-timeline-player">C. Palmer</div>
+                    </div>
+                  </div>
+                  <div class="mrd-timeline-card">
+                    <div class="mrd-timeline-icon-box mrd-timeline-icon-yellow"></div>
+                    <div class="mrd-timeline-card-info">
+                      <div class="mrd-timeline-time">63'</div>
+                      <div class="mrd-timeline-type">Yellow Card</div>
+                      <div class="mrd-timeline-player">M. Ødegaard</div>
+                    </div>
+                  </div>
+                  <div class="mrd-timeline-card">
+                    <div class="mrd-timeline-sub-arrows">
+                      <i class="bi bi-arrow-left text-success"></i>
+                      <i class="bi bi-arrow-right text-danger"></i>
+                    </div>
+                    <div class="mrd-timeline-card-info">
+                      <div class="mrd-timeline-time">78'</div>
+                      <div class="mrd-timeline-type">Substitution</div>
+                      <div class="mrd-timeline-player">R. Sterling</div>
+                    </div>
+                  </div>
+                  <div class="mrd-timeline-card">
+                    <div class="mrd-timeline-icon-box mrd-timeline-icon-yellow"></div>
+                    <div class="mrd-timeline-card-info">
+                      <div class="mrd-timeline-time">90+4'</div>
+                      <div class="mrd-timeline-type">Yellow Card</div>
+                      <div class="mrd-timeline-player">M. Caicedo</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mrd-timeline-axis-line">
+                  <div class="mrd-timeline-node" style="left: 6%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                  <div class="mrd-timeline-node" style="left: 24%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-green"></div></div>
+                  <div class="mrd-timeline-node" style="left: 40%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                  <div class="mrd-timeline-node" style="left: 42%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                  <div class="mrd-timeline-node" style="left: 59%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-green"></div></div>
+                  <div class="mrd-timeline-node" style="left: 67%;"><i class="bi bi-dribbble mrd-timeline-ball-icon"></i></div>
+                  <div class="mrd-timeline-node" style="left: 81%;"><div class="mrd-timeline-sq-node mrd-timeline-sq-yellow"></div></div>
+                </div>
+
+                <div class="mrd-timeline-labels-row">
+                  <span>0'</span>
+                  <span>15'</span>
+                  <span>30'</span>
+                  <span>HT</span>
+                  <span>60'</span>
+                  <span>75'</span>
+                  <span>FT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 3: KEY STATISTICS -->
+            <div class="tab-pane fade" id="stats-tab-pane" role="tabpanel" tabindex="0">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-semibold text-white" style="font-size: 11px;">Detailed Match Statistics</span>
+              </div>
+
+              <table class="stats-table text-muted">
+                <tbody>
+                  <tr>
+                    <td>Possession</td>
+                    <td class="text-end text-danger fw-semibold">58%</td>
+                    <td class="text-end text-primary fw-semibold">42%</td>
+                  </tr>
+                  <tr>
+                    <td>Expected Goals (xG)</td>
+                    <td class="text-end text-danger fw-semibold">1.48</td>
+                    <td class="text-end text-primary fw-semibold">1.31</td>
+                  </tr>
+                  <tr>
+                    <td>Total Shots</td>
+                    <td class="text-end text-danger fw-semibold">15</td>
+                    <td class="text-end text-primary fw-semibold">9</td>
+                  </tr>
+                  <tr>
+                    <td>Shots on Target</td>
+                    <td class="text-end text-danger fw-semibold">5</td>
+                    <td class="text-end text-primary fw-semibold">4</td>
+                  </tr>
+                  <tr>
+                    <td>Big Chances</td>
+                    <td class="text-end text-danger fw-semibold">3</td>
+                    <td class="text-end text-primary fw-semibold">2</td>
+                  </tr>
+                  <tr>
+                    <td>Passes Completed</td>
+                    <td class="text-end text-danger fw-semibold">474</td>
+                    <td class="text-end text-primary fw-semibold">312</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- TAB 4: DATA SOURCES -->
+            <div class="tab-pane fade" id="sources-tab-pane" role="tabpanel" tabindex="0">
+              <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-semibold text-white" style="font-size: 10.5px;">Integrated Data Sources</span>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-6 col-md-3">
+                  <div class="source-card">
+                    <div class="fw-semibold text-white" style="font-size: 9.5px;">Opta Feed</div>
+                    <div class="text-muted mb-2" style="font-size: 8px;">Match data & events</div>
+                    <span class="badge-status badge-published py-0 px-1" style="font-size: 7.5px;">Trusted</span>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="source-card">
+                    <div class="fw-semibold text-white" style="font-size: 9.5px;">Opta Lineups</div>
+                    <div class="text-muted mb-2" style="font-size: 8px;">Starting XI & subs</div>
+                    <span class="badge-status badge-published py-0 px-1" style="font-size: 7.5px;">Trusted</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: METADATA, LOGS & ERRORS -->
+      <div class="col-lg-3">
+        <div class="d-flex flex-column gap-2">
+          
+          <!-- Metadata Card -->
+          <div class="dash-card">
+            <div class="d-flex flex-column gap-1 mb-2 text-muted" style="font-size: 10px;">
+              <div class="d-flex align-items-center justify-content-between">
+                <span>Report ID: REP-PL-20250518-ARS-CHE-V2.1</span>
+                <i class="bi bi-copy text-muted" style="cursor: pointer;"></i>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <span>Event ID: EVT-PL-20250518-ARS-CHE</span>
+                <i class="bi bi-copy text-muted" style="cursor: pointer;"></i>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between gap-1 pt-1 border-top border-secondary border-opacity-10">
+              <button class="top-btn-outline py-1 px-2" style="font-size: 10px;"><i class="bi bi-share"></i> Share Link</button>
+              <button class="top-btn-outline py-1 px-2" style="font-size: 10px;"><i class="bi bi-file-earmark-pdf"></i> Export PDF</button>
+              <button class="top-btn-outline py-1 px-2" style="font-size: 10px;"><i class="bi bi-file-earmark-excel"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <!-- Version History Card -->
+          <div class="dash-card">
+            <div class="fw-semibold text-white mb-2" style="font-size: 10.5px;">Version History</div>
+            
+            <div class="d-flex flex-column gap-2 mb-2">
+              <div class="d-flex align-items-center justify-content-between" style="font-size: 10px;">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="text-success fw-bold">v2.1</span>
+                  <span class="badge-status badge-published py-0">Corrected</span>
+                </div>
+                <span class="text-muted">05/19/2025 14:32</span>
+                <span class="text-muted">John Doe</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between" style="font-size: 10px;">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="text-muted fw-bold">v2.0</span>
+                  <span class="badge-status badge-published py-0">Published</span>
+                </div>
+                <span class="text-muted">05/18/2025 18:05</span>
+                <span class="text-muted">John Doe</span>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between" style="font-size: 10px;">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="text-muted fw-bold">v1.0</span>
+                  <span class="badge-status badge-published py-0">Published</span>
+                </div>
+                <span class="text-muted">05/18/2025 12:10</span>
+                <span class="text-muted">System</span>
+              </div>
+            </div>
+
+            <a href="#" class="text-primary text-decoration-none" style="font-size: 10px;">View all versions</a>
+          </div>
+
+          <!-- Correction Log Card -->
+          <div class="dash-card">
+            <div class="fw-semibold text-white mb-2" style="font-size: 10.5px;">Correction Log</div>
+
+            <div class="d-flex flex-column gap-2 mb-2">
+              <div>
+                <div class="d-flex align-items-center justify-content-between" style="font-size: 10px;">
+                  <span class="text-white d-flex align-items-center gap-1"><span style="width:5px; height:5px; background:#22c55e; border-radius:50%;"></span> 05/19/2025 14:32</span>
+                  <span class="text-muted">John Doe</span>
+                </div>
+                <div class="text-muted ps-2 mt-1" style="font-size: 8.5px;">
+                  Corrected shot on target count for Chelsea (4 → 4). Updated possession to 58%-42%.
+                </div>
+              </div>
+
+              <div>
+                <div class="d-flex align-items-center justify-content-between" style="font-size: 10px;">
+                  <span class="text-white d-flex align-items-center gap-1"><span style="width:5px; height:5px; background:#3b82f6; border-radius:50%;"></span> 05/18/2025 18:05</span>
+                  <span class="text-muted">John Doe</span>
+                </div>
+                <div class="text-muted ps-2 mt-1" style="font-size: 8.5px;">
+                  Initial publication.
+                </div>
+              </div>
+            </div>
+
+            <a href="#" class="text-primary text-decoration-none" style="font-size: 10px;">View full correction log</a>
+          </div>
+
+          <!-- Red Alert Card -->
+          <div class="card-error-failed">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <strong class="text-danger" style="font-size: 10.5px;">Generation Failed</strong>
+              <span class="text-muted" style="font-size: 8.5px;">05/15/2025 11:42</span>
+            </div>
+
+            <p class="text-muted mb-2" style="font-size: 8.5px; line-height: 1.4;">
+              The report could not be generated due to insufficient data from one or more sources.
+            </p>
+
+            <div class="text-danger mb-2" style="font-size: 8.5px;">
+              Reason: Missing lineup data from Opta Feed.
+            </div>
+
+            <button class="btn btn-sm border-secondary text-white py-1 px-2 d-flex align-items-center gap-1" style="font-size: 10px; background-color: var(--card-inner);">
+              <i class="bi bi-arrow-clockwise"></i> Retry Generation
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div> 
+
+
+</main>
+
+<!-- Interactive Scripts -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sidebar Toggle Handler for Mobile & Desktop
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        sidebarToggle.addEventListener('click', function () {
+            if (window.innerWidth <= 991.98) {
+                sidebar.classList.toggle('mobile-show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+            }
+        });
+
+        
+     // CHARTS INITIALIZATION
+        const ctxXg = document.getElementById('xgTrendChart').getContext('2d');
+        const xgChart = new Chart(ctxXg, {
+            type: 'line',
+            data: {
+                labels: ['GW1', 'GW2', 'GW3', 'GW4', 'GW5', 'GW6', 'GW7', 'GW8', 'GW9', 'GW10'],
+                datasets: [
+                    {
+                        label: 'Expected Goals (xG)',
+                        data: [1.8, 2.4, 1.9, 2.8, 2.1, 3.1, 2.4, 2.9, 2.2, 2.85],
+                        borderColor: '#00e676',
+                        backgroundColor: 'rgba(0, 230, 118, 0.08)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Actual Goals Converted',
+                        data: [2.0, 2.0, 3.0, 2.0, 1.0, 4.0, 2.0, 3.0, 2.0, 3.0],
+                        borderColor: '#3b82f6',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#94a3b8', font: { family: 'Poppins' } } }
+                },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+
+        // RADAR CHART
+        const ctxRadar = document.getElementById('radarStyleChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: ['Pressing', 'Buildup', 'Counter', 'Set Piece', 'Defense', 'Possession'],
+                datasets: [{
+                    label: 'Team Tactical Score',
+                    data: [88, 92, 75, 84, 79, 95],
+                    backgroundColor: 'rgba(59, 130, 246, 0.25)',
+                    borderColor: '#3b82f6',
+                    pointBackgroundColor: '#00e676'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255,255,255,0.1)' },
+                        grid: { color: 'rgba(255,255,255,0.1)' },
+                        pointLabels: { color: '#94a3b8', font: { family: 'Poppins', size: 11 } },
+                        ticks: { display: false }
+                    }
+                }
+            }
+        });
+
+        // DOUGHNUT CHART
+        const ctxDoughnut = document.getElementById('goalSourceChart').getContext('2d');
+        new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Open Play', 'Set Pieces', 'Fast Break', 'Penalty'],
+                datasets: [{
+                    data: [58, 26, 11, 5],
+                    backgroundColor: ['#3b82f6', '#00e676', '#f59e0b', '#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#94a3b8', font: { family: 'Poppins', size: 11 } } }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // BAR CHART
+        const ctxBar = document.getElementById('counterSpeedChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['Man City', 'Liverpool', 'Arsenal', 'Real Madrid', 'Bayern'],
+                datasets: [{
+                    label: 'Transition Speed (s)',
+                    data: [8.2, 6.4, 7.8, 6.1, 7.1],
+                    backgroundColor: '#10b981',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    });
+</script>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/language.js?v=4"></script>
+<script src="assets/js/theme.js?v=1"></script>
+
+</body>
+</html>

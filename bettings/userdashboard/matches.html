@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assets/css/styles.css?v=2" rel="stylesheet">
+</head>
+<body>
+
+<!-- Top Navigation Header -->
+<!-- Top Navigation Header -->
+<header class="top-navbar d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link text-white p-0 me-2" id="sidebarToggle" style="font-size: 18px;">
+            <i class="fa-solid fa-bars-staggered text-success"></i>
+        </button>
+
+        <!-- Brand Logo & Title -->
+       <div class="d-flex align-items-center gap-2 logo">
+           <div class="brand-text">
+<img src="assets/images/logo.png" style="width:250px"/>
+</div>
+        </div>
+        <div class="shared-header-title">MATCHES</div>
+
+        <!-- Global Search Bar -->
+        <div class="search-container d-none d-lg-block ms-4">
+            <i class="fa-solid fa-magnifying-glass position-absolute text-secondary" style="left: 12px; top: 11px;"></i>
+            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search match, team, or league...">
+        </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="d-flex align-items-center gap-2 gap-md-3">
+        <div class="shared-status plan d-none d-xl-flex"><i class="fa-solid fa-crown"></i><span><b>Pro Plan</b><small>Valid until 12/31/2025</small></span></div>
+
+        <!-- Language Selector Dropdown -->
+        <div class="dropdown">
+            <button class="theme-toggle-btn gap-2" data-bs-toggle="dropdown" id="langDropdownBtn">
+                <i class="fa-solid fa-globe text-success"></i>
+                <span class="fw-semibold" id="selectedLangText" style="font-size: 12px;">FR</span>
+                <i class="fa-solid fa-chevron-down text-secondary" style="font-size: 9px;"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary shadow-lg">
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="en" href="#">
+                        <span>English</span>
+                        <span class="badge bg-success ms-2">EN</span>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider border-secondary my-1"></li>
+                <li>
+                    <a class="dropdown-item text-white small d-flex align-items-center justify-content-between py-2 language-option" data-language="fr" href="#">
+                        <span>Français (French)</span>
+                        <span class="badge bg-success ms-2">FR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Light / Dark Theme Switcher -->
+        <!-- <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+ -->
+        <!-- Notification Bell -->
+        <div class="position-relative cursor-pointer">
+            <div class="theme-toggle-btn px-3">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 9px;">
+                4
+            </span>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown border-start border-secondary ps-2 ps-md-3">
+            <div class="d-flex align-items-center gap-2 cursor-pointer" data-bs-toggle="dropdown">
+                <div class="bg-success bg-opacity-25 border border-success text-success fw-bold rounded-circle" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 12px;">JD</div>
+                <div class="d-none d-sm-block">
+                    <div class="fw-bold lh-1 text-white" style="font-size: 12px;">John Doe</div>
+                    <small class="text-success" style="font-size: 10px;">Elite Member</small>
+                </div>
+                <i class="fa-solid fa-chevron-down text-secondary ms-1" style="font-size: 10px;"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-user me-2 text-success"></i> Profile</a></li>
+                <li><a class="dropdown-item text-white small" href="#"><i class="fa-solid fa-sliders me-2 text-success"></i> Settings</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger small" href="../login.html"><i class="fa-solid fa-right-from-bracket me-2"></i> Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- Collapsible Left Sidebar -->
+<aside class="sidebar-wrapper" id="sidebar">
+    <div class="sidebar-heading">MAIN MENU</div>
+    <div class="nav-menu">
+        <a href="dashboard.html" class="nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="sidebar-text">Dashboard</span>
+        </a>
+        <a href="matches.html" class="nav-link active">
+            <i class="fa-solid fa-circle-dot text-danger"></i>
+            <span class="sidebar-text">Matches</span>
+        </a>
+        <a href="match-schedule.html" class="nav-link">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span class="sidebar-text">Match Schedule</span>
+        </a>
+        <a href="ai-predictions.html" class="nav-link">
+            <i class="fa-solid fa-robot text-success"></i>
+            <span class="sidebar-text">AI Predictions</span>
+        </a>
+        <a href="value-bets.html" class="nav-link">
+            <i class="fa-solid fa-gem text-warning"></i>
+            <span class="sidebar-text">Value Bets (+EV)</span>
+        </a>
+        <a href="market-analysis.html" class="nav-link">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span class="sidebar-text">Market Analytics</span>
+        </a>
+    </div>
+
+    <div class="sidebar-heading">DEEP INTELLIGENCE</div>
+    <div class="nav-menu">
+        <a href="team-performance.html" class="nav-link">
+            <i class="fa-solid fa-people-group"></i>
+            <span class="sidebar-text">Team Performance</span>
+        </a>
+        <a href="player-analytics.html" class="nav-link">
+            <i class="fa-solid fa-user-gear"></i>
+            <span class="sidebar-text">Player Analytics</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span class="sidebar-text">Advanced Stats</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="sidebar-text">Match Reports</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-star"></i>
+            <span class="sidebar-text">Watchlist</span>
+        </a>
+    </div>
+
+    <div class="nav-menu"><a href="news.html" class="nav-link"><i class="fa-solid fa-newspaper text-success"></i><span class="sidebar-text">Sports News</span></a></div>
+
+    <div class="sidebar-heading">SPORTS</div>
+    <div class="nav-menu">
+        <a href="sports-coverage.html" class="nav-link"><i class="fa-solid fa-futbol"></i><span class="sidebar-text">Sports Coverage</span></a>
+       
+    </div>
+    <div class="sidebar-heading">PREFERENCES</div>
+    <div class="nav-menu">
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-gear"></i>
+            <span class="sidebar-text">Settings</span>
+        </a>
+        <a href="#" class="nav-link">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="sidebar-text">Help & Support</span>
+        </a>
+    </div>
+
+    
+</aside>
+
+<!-- Main Container Content -->
+<main class="main-content" id="mainContent">
+
+    <div class="matches-redesign">
+      <div class="matches-toolbar">
+        <label class="match-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search for a team, player, competition..."></label>
+        <button class="saved-view"><i class="fa-regular fa-star"></i><span>Saved views<br><b>Default view</b></span><i class="fa-solid fa-chevron-down"></i></button>
+      </div>
+      <div class="match-filters">
+        <label>⚽ Sport<select><option>Football</option><option>Basketball</option><option>Tennis</option></select></label>
+        <label>◉ Country<select><option>All</option><option>England</option><option>Spain</option><option>Germany</option></select></label>
+        <label>♧ League<select><option>All</option><option>Premier League</option><option>LaLiga</option><option>Bundesliga</option></select></label>
+        <label>▣ Date<select><option>04/24/2025 – 04/30/2025</option><option>Today</option><option>Next 7 days</option></select></label>
+        <label>◉ Status<select><option>All</option><option>Live</option><option>Upcoming</option><option>Finished</option></select></label>
+        <label>♧ Market<select><option>All</option><option>1X2</option><option>Over/Under</option><option>BTTS</option></select></label>
+        <button class="filter-more"><i class="fa-solid fa-filter"></i> More filters</button>
+      </div>
+      <div class="matches-layout">
+        <section class="matches-table-card">
+          <div class="match-tabs"><button class="active">Live (5)</button><button>Upcoming (42)</button><button>Finished (128)</button></div>
+          <div class="table-scroll"><table><thead><tr><th>☆</th><th>Event ID</th><th>Match</th><th>Competition</th><th>Venue</th><th>Start (Local)</th><th>Status</th><th>Score</th><th>Markets</th><th>Source</th><th>Action</th></tr></thead><tbody>
+          <tr><td>☆</td><td>EFT-20250428-001</td><td><b>🔴 Arsenal</b><br><b>🔵 Chelsea</b></td><td>♛ Premier League<br><small>Matchday 34</small></td><td>▣ Emirates Stadium<br><small>London, ENG</small></td><td>Apr 28, 2025<br>21:00</td><td><em class="live">LIVE</em><br>61'</td><td><b>1 - 1</b></td><td>▥ 142</td><td><span class="source">●</span> Opta Feed<br><small>2 min ago</small></td><td><button class="analysis-btn">View analysis ›</button></td></tr>
+          <tr><td>☆</td><td>EFT-20250428-002</td><td><b>🔵 Manchester City</b><br><b>🟡 Aston Villa</b></td><td>♛ Premier League<br><small>Matchday 34</small></td><td>▣ Etihad Stadium<br><small>Manchester, ENG</small></td><td>Apr 28, 2025<br>21:00</td><td><em class="live">LIVE</em><br>63'</td><td><b>2 - 0</b></td><td>▥ 138</td><td><span class="source">●</span> Opta Feed<br><small>1 min ago</small></td><td><button class="analysis-btn">View analysis ›</button></td></tr>
+          <tr><td>☆</td><td>EFT-20250428-003</td><td><b>⚪ Real Madrid</b><br><b>🔵 Real Sociedad</b></td><td>◈ LaLiga<br><small>Matchday 33</small></td><td>▣ Santiago Bernabéu<br><small>Madrid, ESP</small></td><td>Apr 28, 2025<br>22:00</td><td><em class="live">LIVE</em><br>15'</td><td><b>0 - 0</b></td><td>▥ 126</td><td><span class="source">●</span> Opta Feed<br><small>3 min ago</small></td><td><button class="analysis-btn">View analysis ›</button></td></tr>
+          <tr><td>☆</td><td>EFT-20250428-004</td><td><b>🔴 Bayern Munich</b><br><b>🟡 Borussia Dortmund</b></td><td>▣ Bundesliga<br><small>Matchday 31</small></td><td>▣ Allianz Arena<br><small>Munich, GER</small></td><td>Apr 28, 2025<br>20:30</td><td><em class="live">LIVE</em><br>HT</td><td><b>1 - 0</b></td><td>▥ 132</td><td><span class="source">●</span> StatsBomb<br><small>5 min ago</small></td><td><button class="analysis-btn">View analysis ›</button></td></tr>
+          <tr><td>☆</td><td>EFT-20250428-005</td><td><b>🔵 Paris Saint-Germain</b><br><b>🔵 Marseille</b></td><td>◈ Ligue 1<br><small>Matchday 31</small></td><td>▣ Parc des Princes<br><small>Paris, FRA</small></td><td>Apr 28, 2025<br>20:45</td><td><em class="live">LIVE</em><br>76'</td><td><b>3 - 1</b></td><td>▥ 120</td><td><span class="source">●</span> Opta Feed<br><small>2 min ago</small></td><td><button class="analysis-btn">View analysis ›</button></td></tr>
+          </tbody></table></div>
+          <h3 class="group-title">Upcoming (42)</h3><div class="upcoming-row"><b>🔴 Liverpool<br>⚪ Tottenham Hotspur</b><span>Premier League<br><small>Apr 29, 2025 · 21:00</small></span><em>UPCOMING</em><b>–</b><button class="analysis-btn">View analysis ›</button></div><div class="upcoming-row"><b>🔴 AC Milan<br>🔵 Inter Milan</b><span>Serie A<br><small>Apr 29, 2025 · 20:45</small></span><em>UPCOMING</em><b>–</b><button class="analysis-btn">View analysis ›</button></div>
+          <div class="pagination"><button>‹</button><button class="selected">1</button><button>2</button><button>3</button><button>4</button><button>5</button><span>…</span><button>15</button><button>›</button><label>Show <select><option>25</option><option>50</option></select> per page</label></div>
+        </section>
+        <aside class="states-card"><h3>STATES &amp; EXAMPLES</h3><b>Loading state</b><div class="state-box"><i class="fa-solid fa-spinner fa-spin"></i>Loading matches...<small>Please wait</small></div><b>Empty state</b><div class="state-box"><i class="fa-regular fa-folder-open"></i>No matches found<small>Try adjusting your filters</small><button>Clear filters</button></div><b>API error state</b><div class="state-box error"><i class="fa-solid fa-circle-exclamation"></i>Unable to load matches<small>Please try again later</small><button>↻ Retry</button></div><b>Offline state</b><div class="state-box"><i class="fa-solid fa-cloud-slash"></i>You are offline<small>Check your connection</small></div><small>Last successful update<br>Apr 28, 2025 – 20:58</small><span class="operational">● All systems operational</span></aside>
+      </div>
+    </div>
+		<!-- HEADER TITLE AREA -->
+        <span class="page-badge">MARKET DISCOVERY</span>
+        <h1 class="page-title">Match explorer</h1>
+        <p class="page-subtitle">Follow estimated worldwide betting activity before the line closes.</p>
+
+
+        <!-- FILTERS ROW -->
+        <div class="filter-card">
+            <div class="row g-2 align-items-center">
+                <div class="col-lg-5">
+                    <div class="position-relative">
+                        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary"></i>
+                        <input type="text" class="form-control form-control-custom ps-5" placeholder="Search club, competition or country">
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-lg-2">
+                    <select class="form-select form-select-custom">
+                        <option selected>All leagues</option>
+                        <option>Champions League</option>
+                        <option>Premier League</option>
+                        <option>La Liga</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 col-lg-2">
+                    <select class="form-select form-select-custom">
+                        <option selected>Next 7 days</option>
+                        <option>Today</option>
+                        <option>Tomorrow</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 col-lg-3 d-flex gap-2 justify-content-lg-end">
+                    <button class="btn-filter-action">
+                        <i class="bi bi-sliders"></i> Filters
+                    </button>
+                    <button class="btn-accent">
+                        <i class="bi bi-star-fill"></i> Saved view
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- MAIN CONTENT GRID -->
+        <div class="row g-4">
+
+            <!-- HIGH INTEREST FIXTURES TABLE (LEFT) -->
+            <div class="col-lg-9">
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">High-interest fixtures</h2>
+                            <div class="panel-sub">Sorted by estimated market volume</div>
+                        </div>
+                        <span class="badge-count" style="font-size: 12px; padding: 4px 10px;">36 MATCHES</span>
+                    </div>
+
+                    <div class="match-list">
+                        <!-- Match 1 -->
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">20:00</div>
+                                <div class="match-day">TODAY</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Spain • La Liga</div>
+                                <div class="teams-title">Real Madrid <span class="text-secondary font-weight-normal fs-6">vs</span> FC Barcelona</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€188–226M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">88%</div>
+                            </div>
+                            <div>
+                                <a href="myodin-analysis.html" class="action-arrow-btn" aria-label="Open Myodin match analysis">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Match 2 -->
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">21:15</div>
+                                <div class="match-day">TODAY</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">England • Premier League</div>
+                                <div class="teams-title">Manchester City <span class="text-secondary font-weight-normal fs-6">vs</span> Arsenal</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€142–171M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">84%</div>
+                            </div>
+                            <div>
+                                <a href="myodin-analysis.html" class="action-arrow-btn" aria-label="Open Myodin match analysis">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Match 3 -->
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">18:45</div>
+                                <div class="match-day">TOMORROW</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Europe • Champions League</div>
+                                <div class="teams-title">Paris Saint-Germain <span class="text-secondary font-weight-normal fs-6">vs</span> Bayern Munich</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€113–139M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">86%</div>
+                            </div>
+                            <div>
+                                <a href="#" class="action-arrow-btn">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Match 4 -->
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">19:30</div>
+                                <div class="match-day">TOMORROW</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Italy • Serie A</div>
+                                <div class="teams-title">Inter Milan <span class="text-secondary font-weight-normal fs-6">vs</span> Juventus</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€89–108M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">79%</div>
+                            </div>
+                            <div>
+                                <a href="#" class="action-arrow-btn">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Match 5 -->
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">16:00</div>
+                                <div class="match-day">SAT 02</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Germany • Bundesliga</div>
+                                <div class="teams-title">Bayer Leverkusen <span class="text-secondary font-weight-normal fs-6">vs</span> Dortmund</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€64–78M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">76%</div>
+                            </div>
+                            <div>
+                                <a href="#" class="action-arrow-btn">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">20:00</div>
+                                <div class="match-day">TODAY</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Spain • La Liga</div>
+                                <div class="teams-title">Real Madrid <span class="text-secondary font-weight-normal fs-6">vs</span> FC Barcelona</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€188–226M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">88%</div>
+                            </div>
+                            <div>
+                                <a href="#" class="action-arrow-btn">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="match-row">
+                            <div class="match-time-col">
+                                <div class="match-time">18:45</div>
+                                <div class="match-day">TOMORROW</div>
+                            </div>
+                            <div class="match-meta-col">
+                                <div class="league-tag">Europe • Champions League</div>
+                                <div class="teams-title">Paris Saint-Germain <span class="text-secondary font-weight-normal fs-6">vs</span> Bayern Munich</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">ESTIMATED VOLUME</div>
+                                <div class="stat-value">€113–139M</div>
+                            </div>
+                            <div class="match-stat-col">
+                                <div class="stat-label">MODEL CONFIDENCE</div>
+                                <div class="stat-value green">86%</div>
+                            </div>
+                            <div>
+                                <a href="#" class="action-arrow-btn">
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- RIGHT SIDEBAR (LIVE SIGNALS & STATS) -->
+            <div class="col-lg-3">
+                <div class="d-flex flex-column gap-4">
+
+                    <!-- LIVE SIGNALS PANEL -->
+                    <div class="panel-card">
+                        <div class="panel-header mb-3">
+                            <div>
+                                <h2 class="panel-title">Live signals</h2>
+                                <div class="panel-sub">Movements worth watching now</div>
+                            </div>
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-icon">
+                                <i class="bi bi-arrow-down-short fs-5"></i>
+                            </div>
+                            <div class="signal-title">El Clásico: demand spike</div>
+                            <div class="signal-desc">Social and search signals grew 14% in the last hour.</div>
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-icon" style="background: rgba(14, 165, 233, 0.15); color: #0ea5e9;">
+                                <i class="bi bi-arrow-down-short fs-5"></i>
+                            </div>
+                            <div class="signal-title">Arsenal price shortened</div>
+                            <div class="signal-desc">Opening odds fell from 3.10 to 2.94 across consensus books.</div>
+                        </div>
+
+                        <div class="signal-item">
+                            <div class="signal-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+                                <i class="bi bi-droplet"></i>
+                            </div>
+                            <div class="signal-title">Liquidity concentration</div>
+                            <div class="signal-desc">More than 41% of observable exchange depth sits on home win.</div>
+                        </div>
+                    </div>
+
+
+                    <!-- TODAY BY NUMBERS PANEL -->
+                    <div class="panel-card">
+                        <div class="panel-header mb-1">
+                            <div>
+                                <h2 class="panel-title">Today by the numbers</h2>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-end">
+                            <div>
+                                <div class="big-number">€524M</div>
+                                <div class="panel-sub">est. total volume</div>
+                            </div>
+                            <div class="text-end">
+                                <span class="fs-5 fw-bold text-success">+16%</span>
+                                <div class="panel-sub">vs avg. Tuesday</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+	</main>
+	<script src="app.js">
+	</script>
+<script src="assets/js/language.js"></script>
+<script src="assets/js/theme.js?v=1"></script>
+</body>
+</html>

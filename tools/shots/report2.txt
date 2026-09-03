@@ -1,0 +1,56 @@
+DIFF  /home
+    - classes only-next=["badge","bg-success","bi-chevron-down","bi-translate","border-secondary","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","fw-semibold","language-option","my-1","py-2","shadow-lg","text-success","theme-toggle-btn"] only-html=[]
+    - ids only-next=["langDropdownBtn","selectedLangText"] only-html=[]
+    - headings next=["See the Game.Understand the Market.Predict What's Next.","500+","1M+","250K+","98.7%","Every Match.Every Signal.One Intelligence Layer."] html=["See the Game. Understand the Market. Predict What's Next.","500+","1M+","250K+","98.7%","Every Match. Every Signal. One Intelligence Layer."]
+    - links only-next=["/","/login","/register","/register","/register"] only-html=["index.html","login.html","register.html","register.html","register.html"]
+    - text mismatch @33 len next=4868 html=4865
+    -   next...Home About Us Pricing Contact Us FR Login Get Started NEXT GENERATION FOOTBALL INTELLIGENCE See the Game. Understand the Ma
+    -   html...Home About Us Pricing Contact Us Login Get Started NEXT GENERATION FOOTBALL INTELLIGENCE See the Game. Understand the Marke
+DIFF  /login
+    - classes only-next=["badge","bg-success","bi-chevron-down","bi-translate","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","language-option","my-1","py-2","shadow-lg","theme-toggle-btn"] only-html=[]
+    - ids only-next=["langDropdownBtn","selectedLangText"] only-html=[]
+    - links only-next=["/","/login","/register","/register"] only-html=["index.html","login.html","register.html","register.html"]
+    - text mismatch @33 len next=659 html=656
+    -   next...Home About Us Pricing Contact Us FR Login Get Started SECURE PORTAL Welcome Back Access AI match intelligence & market sign
+    -   html...Home About Us Pricing Contact Us Login Get Started SECURE PORTAL Welcome Back Access AI match intelligence & market signals
+DIFF  /register
+    - classes only-next=["badge","bg-success","bi-chevron-down","bi-translate","dropdown","dropdown-divider","dropdown-item","dropdown-menu","dropdown-menu-end","language-option","my-1","py-2","shadow-lg","theme-toggle-btn"] only-html=[]
+    - ids only-next=["langDropdownBtn","selectedLangText"] only-html=[]
+    - links only-next=["/","/login","/login","/register"] only-html=["index.html","login.html","login.html","register.html"]
+    - text mismatch @55 len next=1183 html=1180
+    -   next...FOOTBALL INTELLIGENCE Home About Us Pricing Contact Us FR Login Get Started AI-POWERED ANALYTICS Unlock High-Precision Match Signals. Join 250,00
+    -   html...FOOTBALL INTELLIGENCE Home About Us Pricing Contact Us Login Get Started AI-POWERED ANALYTICS Unlock High-Precision Match Signals. Join 250,000+ 
+DIFF  /dashboard
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /advanced-stats
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /ai-predictions
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /help-support
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /market-analysis
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /match-analysis
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /match-reports
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /match-schedule
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /matches
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /news
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /player-analytics
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /profile
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /settings
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /sports-coverage
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
+DIFF  /team-performance
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /value-bets
+    - links only-next=["/ai-predictions","/dashboard","/login","/market-analysis","/match-schedule","/matches","/news","/player-analytics"] only-html=["../login.html","ai-predictions.html","dashboard.html","market-analysis.html","match-schedule.html","matches.html","news.html","player-analytics.html"]
+DIFF  /watchlist
+    - links only-next=["/advanced-stats","/ai-predictions","/dashboard","/help-support","/login","/market-analysis","/match-reports","/match-schedule"] only-html=["../login.html","advanced-stats.html","ai-predictions.html","dashboard.html","help-support.html","market-analysis.html","match-reports.html","match-schedule.html"]
