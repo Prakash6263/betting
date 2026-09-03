@@ -26,7 +26,17 @@ export default function AuthGuard({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (PUBLIC_PATHS.has(pathname)) return;
+    if (PUBLIC_PATHS.has(pathname)) {
+      // Already signed in users do not need /login or /register.
+      if ((pathname === '/login' || pathname === '/register') && getToken()) {
+        let cancelled = false;
+        validateSession().then((ok) => {
+          if (ok && !cancelled) router.replace('/dashboard');
+        });
+        return () => { cancelled = true; };
+      }
+      return;
+    }
     const token = getToken();
     if (!token) {
       router.replace('/login');

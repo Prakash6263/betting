@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiFetch, initialsOf } from '../../lib/api';
+import { apiFetch, initialsOf, stashDevOtp } from '../../lib/api';
 import { loadProfile, invalidateProfile } from '../../lib/profile-store';
 import { useT } from '../../lib/i18n';
 
@@ -31,14 +31,15 @@ export default function ProfileContent() {
     e.preventDefault();
     setMsg(null);
     if (!name.trim()) { setMsg({ type: 'danger', text: 'Name cannot be empty.' }); return; }
-    const emailChanged = email.toLowerCase() !== (user && user.email ? user.email.toLowerCase() : '');
+    const newEmail = email.trim();
+    const emailChanged = newEmail.toLowerCase() !== (user && user.email ? user.email.toLowerCase() : '');
     if (emailChanged && !currentPassword) {
       setMsg({ type: 'danger', text: 'Enter your current password to change your email.' });
       return;
     }
     setSaving(true);
     const body = { name: name.trim() };
-    if (emailChanged) { body.email = email.trim(); body.currentPassword = currentPassword; }
+    if (emailChanged) { body.email = newEmail; body.currentPassword = currentPassword; }
     const res = await apiFetch('/api/user/profile', { method: 'PUT', auth: true, body });
     setSaving(false);
     if (res.ok) {
@@ -50,7 +51,13 @@ export default function ProfileContent() {
         setEmail(fresh.data.user.email || '');
         setCurrentPassword('');
       }
-      setMsg({ type: 'success', text: (res.data && res.data.message) || 'Profile saved.' });
+      if (res.data && res.data.requiresOtp) {
+        if (res.data.devOtp) stashDevOtp(res.data.devOtp);
+        setMsg({ type: 'success', text: 'Profile saved. A verification code was sent to your new email. Redirecting to verify it...' });
+        setTimeout(() => router.push('/verify-otp?email=' + encodeURIComponent(newEmail)), 1500);
+      } else {
+        setMsg({ type: 'success', text: (res.data && res.data.message) || 'Profile saved.' });
+      }
     } else {
       setMsg({ type: 'danger', text: (res.data && res.data.message) || 'Could not save profile.' });
     }

@@ -37,7 +37,12 @@ async function issueAndSendOtp(email, purpose, name) {
     lastResentAt: new Date(),
   });
   console.log(`[OTP] ${purpose} code for ${email}: ${code}`);
-  await sendOtpEmail({ to: email, name, otp: code, purpose });
+  try {
+    await sendOtpEmail({ to: email, name, otp: code, purpose });
+  } catch (err) {
+    // Never fail signup/resend when the mail server is unreachable.
+    console.warn(`[OTP] Email delivery failed for ${email}: ${err.message || err}`);
+  }
   return code;
 }
 
@@ -146,6 +151,7 @@ async function sendOtpCommon(req, res, next, isResend) {
           return res.status(429).json({
             success: false,
             message: `Please wait ${waitSec} seconds before requesting a new code.`,
+            retryAfterSec: waitSec,
           });
         }
       }
@@ -194,12 +200,13 @@ async function verifyOtp(req, res, next) {
       return res.status(400).json({ success: false, message: 'Incorrect code. Please try again.' });
     }
 
-    doc.consumed = true;
-    await doc.save();
-
     if (cleanPurpose === 'reset_password') {
+      // Do not consume the code here: resetPassword() is the consuming step.
       return res.json({ success: true, message: 'Code verified. You can now reset your password.' });
     }
+
+    doc.consumed = true;
+    await doc.save();
 
     const user = await User.findOne({ email: cleanEmail });
     if (!user) {
@@ -287,4 +294,4 @@ async function logout(req, res, next) {
   }
 }
 
-module.exports = { signup, login, sendOtp, resendOtp, verifyOtp, forgotPassword, resetPassword, logout };
+module.exports = { signup, login, sendOtp, resendOtp, verifyOtp, forgotPassword, resetPassword, logout, issueAndSendOtp };

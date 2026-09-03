@@ -2,20 +2,36 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 const TOKEN_KEY = 'myodin_token';
+const TOKEN_SESSION_KEY = 'myodin_token_session';
 
 export function getToken() {
   if (typeof window === 'undefined') return null;
-  try { return window.localStorage.getItem(TOKEN_KEY); } catch { return null; }
+  try {
+    return window.localStorage.getItem(TOKEN_KEY) || window.sessionStorage.getItem(TOKEN_SESSION_KEY);
+  } catch { return null; }
 }
 
-export function setToken(token) {
+// persist=true  -> survives browser restart (localStorage)
+// persist=false -> session only, cleared when the tab/browser closes
+export function setToken(token, persist = true) {
   if (typeof window === 'undefined') return;
-  try { window.localStorage.setItem(TOKEN_KEY, token); } catch { /* ignore */ }
+  try {
+    if (persist) {
+      window.localStorage.setItem(TOKEN_KEY, token);
+      window.sessionStorage.removeItem(TOKEN_SESSION_KEY);
+    } else {
+      window.sessionStorage.setItem(TOKEN_SESSION_KEY, token);
+      window.localStorage.removeItem(TOKEN_KEY);
+    }
+  } catch { /* ignore */ }
 }
 
 export function clearToken() {
   if (typeof window === 'undefined') return;
-  try { window.localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ }
+  try {
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(TOKEN_SESSION_KEY);
+  } catch { /* ignore */ }
 }
 
 export async function apiFetch(pathname, { method = 'GET', body, auth = false } = {}) {

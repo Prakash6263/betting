@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import UserMenu from '../../components/profile/UserMenu';
 import Link from 'next/link';
 
 export default function Page() {
@@ -83,22 +84,7 @@ export default function Page() {
         </div>
 
         
-        <div className={"dropdown border-start border-secondary ps-2 ps-md-3"}>
-            <div className={"d-flex align-items-center gap-2 cursor-pointer"} data-bs-toggle={"dropdown"}>
-                <div className={"bg-success bg-opacity-25 border border-success text-success fw-bold rounded-circle"} style={{width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px"}}>JD</div>
-                <div className={"d-none d-sm-block"}>
-                    <div className={"fw-bold lh-1 text-white"} style={{fontSize: "12px"}}>John Doe</div>
-                    <small className={"text-success"} style={{fontSize: "10px"}}>Elite Member</small>
-                </div>
-                <i className={"fa-solid fa-chevron-down text-secondary ms-1"} style={{fontSize: "10px"}}></i>
-            </div>
-            <ul className={"dropdown-menu dropdown-menu-end bg-dark border-secondary"}>
-                <li><a className={"dropdown-item text-white small"} href={"#"}><i className={"fa-solid fa-user me-2 text-success"}></i> Profile</a></li>
-                <li><a className={"dropdown-item text-white small"} href={"#"}><i className={"fa-solid fa-sliders me-2 text-success"}></i> Settings</a></li>
-                <li><hr className={"dropdown-divider border-secondary"} /></li>
-                <li><Link className={"dropdown-item text-danger small"} href={"/login"}><i className={"fa-solid fa-right-from-bracket me-2"}></i> Log Out</Link></li>
-            </ul>
-        </div>
+        <UserMenu />
     </div>
 </header>
 

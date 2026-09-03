@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { issueAndSendOtp } = require('./authController');
 
 const ALLOWED_FIELDS = ['name', 'language', 'preferences', 'email'];
 
@@ -88,7 +89,23 @@ async function updateProfile(req, res, next) {
     Object.assign(req.user, updates);
     await req.user.save();
 
-    res.json({ success: true, message: 'Profile updated.', user: req.user.toSafeJSON() });
+    let requiresOtp = false;
+    let devOtpCode = null;
+    if (updates.email) {
+      // New email must be verified before it can be used to log in again.
+      requiresOtp = true;
+      const code = await issueAndSendOtp(updates.email, 'email_verify', req.user.name);
+      if (process.env.NODE_ENV === 'development') devOtpCode = code;
+    }
+
+    res.json({
+      success: true,
+      message: updates.email
+        ? 'Profile updated. A verification code has been sent to your new email.'
+        : 'Profile updated.',
+      user: req.user.toSafeJSON(),
+      ...(requiresOtp ? { requiresOtp: true, ...(devOtpCode ? { devOtp: devOtpCode } : {}) } : {}),
+    });
   } catch (err) {
     next(err);
   }

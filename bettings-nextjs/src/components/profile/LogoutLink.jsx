@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiFetch, clearToken } from '../../lib/api';
+import { invalidateProfile } from '../../lib/profile-store';
 import { useT } from '../../lib/i18n';
 
 export default function LogoutLink() {
@@ -15,6 +16,7 @@ export default function LogoutLink() {
     setBusy(true);
     await apiFetch('/api/auth/logout', { method: 'POST', auth: true });
     clearToken();
+    invalidateProfile();
     router.push('/login');
   }
 

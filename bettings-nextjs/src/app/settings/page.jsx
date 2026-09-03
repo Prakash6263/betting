@@ -1,7 +1,6 @@
 import Script from 'next/script';
+import UserMenu from '../../components/profile/UserMenu';
 import Link from 'next/link';
-import SessionChip from '../../components/profile/SessionChip';
-import LogoutLink from '../../components/profile/LogoutLink';
 import SettingsContent from '../../components/profile/SettingsContent';
 
 export default function Page() {
@@ -83,15 +82,7 @@ export default function Page() {
         </div>
 
         
-        <div className={"dropdown border-start border-secondary ps-2 ps-md-3"}>
-            <SessionChip />
-            <ul className={"dropdown-menu dropdown-menu-end bg-dark border-secondary"}>
-                <li><a className={"dropdown-item  small"} href={"#"}><i className={"fa-solid fa-user me-2 text-success"}></i> Profile</a></li>
-                <li><a className={"dropdown-item  small"} href={"#"}><i className={"fa-solid fa-sliders me-2 text-success"}></i> Settings</a></li>
-                <li><hr className={"dropdown-divider border-secondary"} /></li>
-                <li><LogoutLink /></li>
-            </ul>
-        </div>
+        <UserMenu />
     </div>
 </header>
 

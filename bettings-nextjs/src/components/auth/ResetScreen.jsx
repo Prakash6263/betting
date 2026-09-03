@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiFetch, readDevOtp, clearDevOtp } from '../../lib/api';
 import { useT } from '../../lib/i18n';
@@ -18,6 +18,13 @@ export default function ResetScreen() {
   const [info, setInfo] = useState('');
   const [done, setDone] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resendWait, setResendWait] = useState(0);
+
+  useEffect(() => {
+    if (resendWait <= 0) return;
+    const timer = setTimeout(() => setResendWait((w) => w - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [resendWait]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -48,6 +55,9 @@ export default function ResetScreen() {
       if (res.data && res.data.devOtp) window.sessionStorage.setItem('myodin_dev_otp', res.data.devOtp);
       setInfo(t('A new code has been emailed to you.'));
       return;
+    }
+    if (res.status === 429 && res.data && res.data.retryAfterSec) {
+      setResendWait(Number(res.data.retryAfterSec));
     }
     setError((res.data && res.data.message) || t('Could not resend code.'));
   }
@@ -98,8 +108,8 @@ export default function ResetScreen() {
           </button>
           <div className={"text-center text-secondary small"} style={{fontSize: "12px"}}>
             {t('Did not receive it?')}{' '}
-            <button type={"button"} className={"btn btn-link text-success p-0 align-baseline"} style={{fontSize: "12px"}} onClick={handleResend}>
-              {t('Resend code')}
+            <button type={"button"} className={"btn btn-link text-success p-0 align-baseline"} style={{fontSize: "12px"}} disabled={loading || resendWait > 0} onClick={handleResend}>
+              {resendWait > 0 ? 'Resend code (' + resendWait + 's)' : t('Resend code')}
             </button>
           </div>
         </form>

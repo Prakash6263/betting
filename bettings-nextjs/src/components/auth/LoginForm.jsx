@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { apiFetch, setToken } from '../../lib/api';
@@ -15,6 +15,15 @@ export default function LoginForm() {
   const [info, setInfo] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    if (sp.get('verified') === '1') {
+      setInfo('Your email is verified. Please sign in.');
+    } else if (sp.get('reset') === '1') {
+      setInfo('Password updated. Please sign in with your new password.');
+    }
+  }, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
@@ -23,7 +32,7 @@ export default function LoginForm() {
     const res = await apiFetch('/api/auth/login', { method: 'POST', body: { email, password } });
     setLoading(false);
     if (res.ok && res.data && res.data.token) {
-      setToken(res.data.token);
+      setToken(res.data.token, remember);
       router.push('/dashboard');
       return;
     }
