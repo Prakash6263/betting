@@ -1,5 +1,5 @@
 (function () {
-  var srcs = ["https://cdn.jsdelivr.net/npm/chart.js","https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js","/assets/js/language.js","/assets/js/theme.js?v=1","/assets/next/watchlist-inline-0.js","/assets/next/watchlist-inline-1.js","/assets/next/inline-events.js"];
+  var srcs = ["https://cdn.jsdelivr.net/npm/chart.js","https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js","/assets/js/language.js?v=4","/assets/js/theme.js?v=1","/assets/next/watchlist-inline-0.js","/assets/next/watchlist-inline-1.js","/assets/next/inline-events.js"];
   var i = 0;
   function next() {
     if (i >= srcs.length) {
@@ -8,10 +8,18 @@
       return;
     }
     var url = srcs[i++];
+    var prev = document.querySelector('script[data-boot-src="' + url + '"]');
+    if (prev) {
+      if (prev.getAttribute('data-boot-loaded') === '1') { next(); return; }
+      prev.addEventListener('load', next);
+      prev.addEventListener('error', next);
+      return;
+    }
     var s = document.createElement('script');
     s.src = url;
+    s.setAttribute('data-boot-src', url);
     s.async = false;
-    s.onload = next;
+    s.onload = function () { s.setAttribute('data-boot-loaded', '1'); next(); };
     s.onerror = next;
     document.head.appendChild(s);
   }
