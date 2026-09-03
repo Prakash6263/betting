@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-const PUBLIC_PATHS = new Set(['/', '/login', '/register']);
+const PUBLIC_PATHS = new Set(['/', '/login', '/register', '/forgot-password', '/verify-otp', '/reset-password']);
 
 // Public section: original index.html / login.html / register.html
 const PUBLIC_CSS = [

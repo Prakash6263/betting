@@ -1,6 +1,10 @@
 const User = require('../models/User');
 
-const ALLOWED_FIELDS = ['name', 'language', 'preferences'];
+const ALLOWED_FIELDS = ['name', 'language', 'preferences', 'email'];
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
 
 // 6a) GET PROFILE
 async function getProfile(req, res, next) {
@@ -24,6 +28,29 @@ async function updateProfile(req, res, next) {
       updates.name = String(body.name).trim();
     }
 
+    if (body.email !== undefined) {
+      const newEmail = String(body.email).trim().toLowerCase();
+      if (!isValidEmail(newEmail)) {
+        return res.status(400).json({ success: false, message: 'A valid email is required.' });
+      }
+      if (newEmail !== String(req.user.email).toLowerCase()) {
+        const currentPassword = body.currentPassword;
+        if (!currentPassword) {
+          return res.status(400).json({ success: false, message: 'Enter your current password to change your email.' });
+        }
+        const userFull = await User.findById(req.user._id).select('+password');
+        if (!(await userFull.comparePassword(String(currentPassword)))) {
+          return res.status(401).json({ success: false, message: 'Current password is incorrect.' });
+        }
+        const taken = await User.findOne({ email: newEmail, _id: { $ne: req.user._id } });
+        if (taken) {
+          return res.status(409).json({ success: false, message: 'That email is already registered.' });
+        }
+        updates.email = newEmail;
+        updates.emailVerified = false;
+      }
+    }
+
     if (body.language !== undefined) {
       if (!['en', 'fr'].includes(body.language)) {
         return res.status(400).json({ success: false, message: 'Language must be "en" or "fr".' });
@@ -33,7 +60,7 @@ async function updateProfile(req, res, next) {
 
     if (body.preferences !== undefined) {
       const prefs = req.user.preferences || {};
-      const allowedPrefs = ['notifications', 'newsletter', 'theme'];
+      const allowedPrefs = ['notifications', 'newsletter', 'theme', 'valueSignals'];
       const nextPrefs = {};
       for (const key of allowedPrefs) {
         if (body.preferences[key] !== undefined) {

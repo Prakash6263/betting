@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     preferences: {
       notifications: { type: Boolean, default: true },
       newsletter: { type: Boolean, default: false },
+      valueSignals: { type: Boolean, default: false },
       theme: { type: String, enum: ['dark', 'light'], default: 'dark' },
     },
     tokenVersion: { type: Number, default: 0 },

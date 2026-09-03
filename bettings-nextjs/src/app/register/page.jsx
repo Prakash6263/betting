@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import Link from 'next/link';
+import RegisterForm from '../../components/auth/RegisterForm';
 
 export default function Page() {
   return (
@@ -168,48 +169,7 @@ Get Started
                     <p className={"text-secondary small"}>Start analyzing matches free with full access to standard insights.</p>
                 </div>
 
-                <form>
-                    
-                    <div className={"mb-3 position-relative"}>
-                        <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>FULL NAME</label>
-                        <i className={"bi bi-person input-icon"}></i>
-                        <input type={"text"} className={"form-control"} placeholder={"John Doe"} required />
-                    </div>
-
-                    
-                    <div className={"mb-3 position-relative"}>
-                        <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>EMAIL ADDRESS</label>
-                        <i className={"bi bi-envelope input-icon"}></i>
-                        <input type={"email"} className={"form-control"} placeholder={"analyst@example.com"} required />
-                    </div>
-
-                    
-                    <div className={"row g-3 mb-3"}>
-                        <div className={"col-md-6 position-relative"}>
-                            <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>PASSWORD</label>
-                            <i className={"bi bi-lock input-icon"}></i>
-                            <input type={"password"} className={"form-control"} placeholder={"••••••••"} required />
-                        </div>
-                        <div className={"col-md-6 position-relative"}>
-                            <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>CONFIRM PASSWORD</label>
-                            <i className={"bi bi-shield-check input-icon"}></i>
-                            <input type={"password"} className={"form-control"} placeholder={"••••••••"} required />
-                        </div>
-                    </div>
-
-                    
-                    <div className={"form-check mb-4"}>
-                        <input className={"form-check-input bg-dark border-secondary"} type={"checkbox"} id={"termsCheck"} required />
-                        <label className={"form-check-label text-secondary small"} htmlFor={"termsCheck"} style={{fontSize: "12px"}}>
-                            I agree to the <a href={"#"} className={"text-success text-decoration-none"}>Terms of Service</a> and <a href={"#"} className={"text-success text-decoration-none"}>Privacy Policy</a>.
-                        </label>
-                    </div>
-
-                    
-                    <button type={"submit"} className={"btn btn-primary-custom w-100 mb-3"}>
-                        Create Free Account <i className={"bi bi-arrow-right ms-2"}></i>
-                    </button>
-                </form>
+                <RegisterForm />
 
                 <div className={"divider"}>OR SIGN UP WITH</div>
 

@@ -1,5 +1,8 @@
 import Script from 'next/script';
 import Link from 'next/link';
+import SessionChip from '../../components/profile/SessionChip';
+import LogoutLink from '../../components/profile/LogoutLink';
+import SettingsContent from '../../components/profile/SettingsContent';
 
 export default function Page() {
   return (
@@ -81,19 +84,12 @@ export default function Page() {
 
         
         <div className={"dropdown border-start border-secondary ps-2 ps-md-3"}>
-            <div className={"d-flex align-items-center gap-2 cursor-pointer"} data-bs-toggle={"dropdown"}>
-                <div className={"bg-success  border border-success text-success fw-bold rounded-circle"} style={{width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px"}}>JD</div>
-                <div className={"d-none d-sm-block"}>
-                    <div className={"fw-bold lh-1 "} style={{fontSize: "12px"}}>John Doe</div>
-                    <small className={"text-success"} style={{fontSize: "10px"}}>Elite Member</small>
-                </div>
-                <i className={"fa-solid fa-chevron-down  ms-1"} style={{fontSize: "10px"}}></i>
-            </div>
+            <SessionChip />
             <ul className={"dropdown-menu dropdown-menu-end bg-dark border-secondary"}>
                 <li><a className={"dropdown-item  small"} href={"#"}><i className={"fa-solid fa-user me-2 text-success"}></i> Profile</a></li>
                 <li><a className={"dropdown-item  small"} href={"#"}><i className={"fa-solid fa-sliders me-2 text-success"}></i> Settings</a></li>
                 <li><hr className={"dropdown-divider border-secondary"} /></li>
-                <li><Link className={"dropdown-item text-danger small"} href={"/login"}><i className={"fa-solid fa-right-from-bracket me-2"}></i> Log Out</Link></li>
+                <li><LogoutLink /></li>
             </ul>
         </div>
     </div>
@@ -174,61 +170,7 @@ export default function Page() {
 
     
 </aside>
-	<main className={"main-content"} id={"mainContent"}>
-		<section className={"hero-banner-card mb-4"}>
-			<span className={"sport-kicker"}><i className={"fa-solid fa-gear"}></i> ACCOUNT CENTRE</span>
-			<h1 className={"page-title mt-2 mb-1"}>Settings</h1>
-			<p className={"mb-0 text-white"}>Manage your intelligence workspace preferences.</p>
-		</section>
-		<div className={"row g-3"}>
-			<div className={"col-lg-7"}>
-				<div className={"panel-card"}>
-					<h2 className={"panel-title mb-1"}>Notification Preferences</h2>
-					<p className={"panel-sub mb-3"}>Control email and in-app alerts for match updates, market signals, and premium briefings.</p>
-					<div className={"d-flex justify-content-between align-items-center py-3 border-bottom"}>
-						<div>
-							<strong>Live match alerts</strong><small className={"d-block text-secondary"}>Get notified when a watched match starts.</small>
-						</div><input defaultChecked className={"form-check-input"} type={"checkbox"} />
-					</div>
-					<div className={"d-flex justify-content-between align-items-center py-3 border-bottom"}>
-						<div>
-							<strong>Value bet signals</strong><small className={"d-block text-secondary"}>Alert me when the model identifies an opportunity.</small>
-						</div><input defaultChecked className={"form-check-input"} type={"checkbox"} />
-					</div>
-					<div className={"d-flex justify-content-between align-items-center py-3"}>
-						<div>
-							<strong>Daily market summary</strong><small className={"d-block text-secondary"}>Send a daily summary of tracked competitions.</small>
-						</div><input className={"form-check-input"} type={"checkbox"} />
-					</div>
-				</div>
-			</div>
-			<div className={"col-lg-5"}>
-				<div className={"panel-card"}>
-					<h2 className={"panel-title mb-2"}>Account details</h2>
-					<p className={"panel-sub"}>John Doe · Elite Member</p>
-					<div className={"mb-3"}>
-						<span className={"d-block text-secondary small mb-2"}>Email</span><strong>john.doe@example.com</strong>
-					</div>
-					<div className={"mb-3"}>
-						<span className={"d-block text-secondary small mb-2"}>Subscription</span><strong>Pro Intelligence Plan</strong>
-					</div>
-					<hr className={"border-secondary my-3"} />
-					<h3 className={"panel-title mb-2"}>Password & Security</h3>
-					<form>
-						<div className={"mb-3"}>
-							<label className={"form-label small text-secondary"}>Current password</label><input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Enter current password"} type={"password"} />
-						</div>
-						<div className={"mb-3"}>
-							<label className={"form-label small text-secondary"}>New password</label><input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Create new password"} type={"password"} />
-						</div>
-						<div className={"mb-3"}>
-							<label className={"form-label small text-secondary"}>Confirm password</label><input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Confirm new password"} type={"password"} />
-						</div><button className={"btn btn-success btn-sm w-100"} type={"button"}>Update password</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</main>
+	<SettingsContent />
 	
 	
 	

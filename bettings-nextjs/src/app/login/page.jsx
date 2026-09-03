@@ -1,5 +1,6 @@
 import Script from 'next/script';
 import Link from 'next/link';
+import LoginForm from '../../components/auth/LoginForm';
 
 export default function Page() {
   return (
@@ -115,37 +116,7 @@ Get Started
             <p className={"text-secondary small"}>Access AI match intelligence & market signals.</p>
         </div>
 
-        <form action={"/dashboard"}>
-            
-            <div className={"mb-3 position-relative"}>
-                <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>EMAIL ADDRESS</label>
-                <i className={"bi bi-envelope input-group-text-custom"}></i>
-                <input type={"email"} className={"form-control"} placeholder={"user@mail.com"} />
-            </div>
-
-            
-            <div className={"mb-3 position-relative"}>
-                <div className={"d-flex justify-content-between align-items-center mb-1"}>
-                    <label className={"form-label text-secondary small fw-medium mb-0"} style={{fontSize: "11px"}}>PASSWORD</label>
-                    <a href={"#"} className={"text-success text-decoration-none small"} style={{fontSize: "11px"}}>Forgot password?</a>
-                </div>
-                <i className={"bi bi-lock input-group-text-custom"}></i>
-                <input type={"password"} className={"form-control"} placeholder={"••••••••"} />
-            </div>
-
-            
-            <div className={"form-check mb-4"}>
-                <input className={"form-check-input bg-dark border-secondary"} type={"checkbox"} id={"rememberMe"} />
-                <label className={"form-check-label text-secondary small"} htmlFor={"rememberMe"} style={{fontSize: "12px"}}>
-                    Keep me logged in
-                </label>
-            </div>
-
-            
-            <button type={"submit"} className={"btn btn-primary-custom w-100 mb-3"}>
-                Sign In <i className={"bi bi-arrow-right ms-2"}></i>
-            </button>
-        </form>
+        <LoginForm />
 
         <div className={"divider"}>OR CONTINUE WITH</div>
 
