@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import AuthNav from '../components/AuthNav';
 import Link from 'next/link';
 
 export default function Page() {
@@ -49,7 +50,7 @@ export default function Page() {
     <li><a className={"dropdown-item small d-flex justify-content-between py-2 language-option"} data-language={"fr"} href={"#"}><span>Français (French)</span><span className={"badge bg-success ms-2"}>FR</span></a></li>
   </ul>
 </div>
-<Link className={"btn-login"} href={"/login"}>Login</Link> <Link className={"btn-primary-custom"} href={"/register"}>Get Started</Link>
+<AuthNav />
                 </div>
             </div>
         </div>

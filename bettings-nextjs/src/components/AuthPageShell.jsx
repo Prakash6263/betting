@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import AuthNav from './AuthNav';
 import Script from 'next/script';
 
 export default function AuthPageShell({ children }) {
@@ -60,13 +61,7 @@ export default function AuthPageShell({ children }) {
     <li><a className={"dropdown-item small d-flex justify-content-between py-2 language-option"} data-language={"fr"} href={"#"}><span>Français (French)</span><span className={"badge bg-success ms-2"}>FR</span></a></li>
   </ul>
 </div>
-<Link href={"/login"} className={"btn-login"}>
-Login
-</Link>
-
-<Link href={"/register"} className={"btn-primary-custom"}>
-Get Started
-</Link>
+<AuthNav />
 
 </div>
 
