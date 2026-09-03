@@ -1,4 +1,5 @@
 import StyleManager from './styles-manager';
+import AuthGuard from '../components/AuthGuard';
 
 export const metadata = {
   title: 'Football Intelligence'
@@ -14,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="fr" data-bs-theme="dark">
       <body>
         <StyleManager />
-        {children}
+        <AuthGuard>{children}</AuthGuard>
       </body>
     </html>
   );
