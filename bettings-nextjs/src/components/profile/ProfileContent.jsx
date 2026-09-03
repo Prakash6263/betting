@@ -60,12 +60,6 @@ export default function ProfileContent() {
               </div>
               <div className={"col-sm-6"}>
                 <div className={"card-panel"}>
-                  <h5 className={"mb-1"}>{t('Language')}</h5>
-                  <p className={"text-secondary mb-0"}>{user && user.language ? user.language.toUpperCase() : 'FR'}</p>
-                </div>
-              </div>
-              <div className={"col-sm-6"}>
-                <div className={"card-panel"}>
                   <h5 className={"mb-1"}>{t('Plan')}</h5>
                   <p className={"text-secondary mb-0"}>{t('Pro Intelligence')}</p>
                 </div>
