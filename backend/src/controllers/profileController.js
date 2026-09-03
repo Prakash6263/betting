@@ -41,7 +41,7 @@ async function updateProfile(req, res, next) {
         }
         const userFull = await User.findById(req.user._id).select('+password');
         if (!(await userFull.comparePassword(String(currentPassword)))) {
-          return res.status(401).json({ success: false, message: 'Current password is incorrect.' });
+          return res.status(400).json({ success: false, message: 'Current password is incorrect.' });
         }
         const taken = await User.findOne({ email: newEmail, _id: { $ne: req.user._id } });
         if (taken) {
@@ -124,7 +124,7 @@ async function changePassword(req, res, next) {
 
     const user = await User.findById(req.user._id).select('+password');
     if (!(await user.comparePassword(String(currentPassword)))) {
-      return res.status(401).json({ success: false, message: 'Current password is incorrect.' });
+      return res.status(400).json({ success: false, message: 'Current password is incorrect.' });
     }
 
     user.password = String(newPassword);
