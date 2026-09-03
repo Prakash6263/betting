@@ -1,67 +1,24 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { apiFetch, initialsOf, stashDevOtp } from '../../lib/api';
-import { loadProfile, invalidateProfile } from '../../lib/profile-store';
+import { initialsOf } from '../../lib/api';
+import { loadProfile } from '../../lib/profile-store';
 import { useT } from '../../lib/i18n';
 
 export default function ProfileContent() {
   const router = useRouter();
   const { t } = useT();
   const [user, setUser] = useState(null);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [msg, setMsg] = useState(null);
-  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     loadProfile().then((r) => {
       if (r.ok && r.data && r.data.user) {
         setUser(r.data.user);
-        setName(r.data.user.name || '');
-        setEmail(r.data.user.email || '');
       } else if (r.status === 401) {
         router.replace('/login');
       }
     });
   }, [router]);
-
-  async function handleSave(e) {
-    e.preventDefault();
-    setMsg(null);
-    if (!name.trim()) { setMsg({ type: 'danger', text: 'Name cannot be empty.' }); return; }
-    const newEmail = email.trim();
-    const emailChanged = newEmail.toLowerCase() !== (user && user.email ? user.email.toLowerCase() : '');
-    if (emailChanged && !currentPassword) {
-      setMsg({ type: 'danger', text: 'Enter your current password to change your email.' });
-      return;
-    }
-    setSaving(true);
-    const body = { name: name.trim() };
-    if (emailChanged) { body.email = newEmail; body.currentPassword = currentPassword; }
-    const res = await apiFetch('/api/user/profile', { method: 'PUT', auth: true, body });
-    setSaving(false);
-    if (res.ok) {
-      invalidateProfile();
-      const fresh = await loadProfile(true);
-      if (fresh.ok && fresh.data && fresh.data.user) {
-        setUser(fresh.data.user);
-        setName(fresh.data.user.name || '');
-        setEmail(fresh.data.user.email || '');
-        setCurrentPassword('');
-      }
-      if (res.data && res.data.requiresOtp) {
-        if (res.data.devOtp) stashDevOtp(res.data.devOtp);
-        setMsg({ type: 'success', text: 'Profile saved. A verification code was sent to your new email. Redirecting to verify it...' });
-        setTimeout(() => router.push('/verify-otp?email=' + encodeURIComponent(newEmail)), 1500);
-      } else {
-        setMsg({ type: 'success', text: (res.data && res.data.message) || 'Profile saved.' });
-      }
-    } else {
-      setMsg({ type: 'danger', text: (res.data && res.data.message) || 'Could not save profile.' });
-    }
-  }
 
   const displayName = user && user.name ? user.name : 'John Doe';
   const displayEmail = user && user.email ? user.email : 'john.doe@example.com';
@@ -118,32 +75,19 @@ export default function ProfileContent() {
         </div>
         <div className={"col-lg-5"}>
           <div className={"panel-card"}>
-            <h2 className={"panel-title mb-2"}>{t('Profile overview')}</h2>
-            <p className={"panel-sub"}>{t('Manage your personal details and security settings.')}</p>
+            <h2 className={"panel-title mb-2"}>{t('Account details')}</h2>
+            <p className={"panel-sub"}>{t('Your account email and personal information. Email cannot be changed.')}</p>
             <div className={"mb-3"}>
               <span className={"d-block text-secondary small mb-2"}>{t('Full name')}</span><strong>{displayName}</strong>
             </div>
             <div className={"mb-3"}>
-              <span className={"d-block text-secondary small mb-2"}>{t('Email')}</span><strong>{displayEmail}</strong>
+              <span className={"d-block text-secondary small mb-2"}>{t('Email')}</span>
+              <div className={"d-flex align-items-center gap-2"}>
+                <strong>{displayEmail}</strong>
+                {user && user.emailVerified && <span className={"badge bg-success text-dark"}>{t('Verified')}</span>}
+              </div>
+              <small className={"text-secondary d-block mt-1"} style={{fontSize: "11px"}}>{t('Email is read-only and cannot be updated from the profile.')}</small>
             </div>
-            <hr className={"border-secondary my-3"} />
-            <h3 className={"panel-title mb-2"}>{t('Password & Security')}</h3>
-            <form onSubmit={handleSave} noValidate>
-              <div className={"mb-3"}>
-                <label className={"form-label small text-secondary"}>{t('Change display name')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} type={"text"} value={name} onChange={(e) => setName(e.target.value)} />
-              </div>
-              <div className={"mb-3"}>
-                <label className={"form-label small text-secondary"}>{t('Update email')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div className={"mb-3"}>
-                <label className={"form-label small text-secondary"}>{t('Current password')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Enter current password"} type={"password"} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
-              </div>
-              {msg && <div className={"alert alert-" + msg.type + " py-2 small mb-3"} style={{fontSize: "12px"}}>{msg.text}</div>}
-              <button className={"btn btn-success btn-sm w-100"} type={"submit"} disabled={saving}>{saving ? t('Saving...') : t('Save profile')}</button>
-            </form>
           </div>
         </div>
       </div>
