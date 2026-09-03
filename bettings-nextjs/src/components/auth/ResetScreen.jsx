@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiFetch, readDevOtp, clearDevOtp } from '../../lib/api';
 import { useT } from '../../lib/i18n';
+import PasswordField from '../PasswordField';
 
 export default function ResetScreen() {
   const router = useRouter();
@@ -86,14 +87,12 @@ export default function ResetScreen() {
             <div className={"col-md-6 position-relative"}>
               <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>{t('NEW PASSWORD')}</label>
               <i className={"bi bi-lock input-icon"}></i>
-              <input type={"password"} className={"form-control"} placeholder={"********"} required value={password}
-                onChange={(e) => setPassword(e.target.value)} />
+              <PasswordField icon={"bi"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={"********"} required />
             </div>
             <div className={"col-md-6 position-relative"}>
               <label className={"form-label text-secondary small fw-medium"} style={{fontSize: "11px"}}>{t('CONFIRM PASSWORD')}</label>
               <i className={"bi bi-shield-check input-icon"}></i>
-              <input type={"password"} className={"form-control"} placeholder={"********"} required value={confirm}
-                onChange={(e) => setConfirm(e.target.value)} />
+              <PasswordField icon={"bi"} value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder={"********"} required />
             </div>
           </div>
           {devOtp && (

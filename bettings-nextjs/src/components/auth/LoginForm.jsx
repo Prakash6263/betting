@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { apiFetch, setToken } from '../../lib/api';
 import { useT } from '../../lib/i18n';
+import PasswordField from '../PasswordField';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -58,8 +59,7 @@ export default function LoginForm() {
           <Link href={"/forgot-password"} className={"text-success text-decoration-none small"} style={{fontSize: "11px"}}>{t('Forgot password?')}</Link>
         </div>
         <i className={"bi bi-lock input-group-text-custom"}></i>
-        <input type={"password"} className={"form-control"} placeholder={"********"} required value={password}
-          onChange={(e) => setPassword(e.target.value)} />
+        <PasswordField icon={"bi"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={"********"} required />
       </div>
       <div className={"form-check mb-4"}>
         <input className={"form-check-input bg-dark border-secondary"} type={"checkbox"} id={"rememberMe"} checked={remember}

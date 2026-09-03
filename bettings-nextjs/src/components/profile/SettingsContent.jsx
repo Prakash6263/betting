@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { apiFetch } from '../../lib/api';
 import { loadProfile, invalidateProfile } from '../../lib/profile-store';
 import { useT } from '../../lib/i18n';
+import PasswordField from '../PasswordField';
 
 export default function SettingsContent() {
   const router = useRouter();
@@ -115,15 +116,15 @@ export default function SettingsContent() {
             <form onSubmit={handlePassword} noValidate>
               <div className={"mb-3"}>
                 <label className={"form-label small text-secondary"}>{t('Current password')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Enter current password"} type={"password"} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
+                <PasswordField icon={"fa"} dark inputClass={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Enter current password"} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} required />
               </div>
               <div className={"mb-3"}>
                 <label className={"form-label small text-secondary"}>{t('New password')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Create new password"} type={"password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                <PasswordField icon={"fa"} dark inputClass={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Create new password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
               </div>
               <div className={"mb-3"}>
                 <label className={"form-label small text-secondary"}>{t('Confirm password')}</label>
-                <input className={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Confirm new password"} type={"password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                <PasswordField icon={"fa"} dark inputClass={"form-control form-control-sm bg-dark border-secondary text-white"} placeholder={"Confirm new password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
               </div>
               {pwMsg && <div className={"alert alert-" + pwMsg.type + " py-2 small mb-3"} style={{fontSize: "12px"}}>{pwMsg.text}</div>}
               <button className={"btn btn-success btn-sm w-100"} type={"submit"} disabled={pwSaving}>{pwSaving ? t('Updating...') : t('Update password')}</button>
