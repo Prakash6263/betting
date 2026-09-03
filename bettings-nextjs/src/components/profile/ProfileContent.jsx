@@ -126,12 +126,6 @@ export default function ProfileContent() {
             <div className={"mb-3"}>
               <span className={"d-block text-secondary small mb-2"}>{t('Email')}</span><strong>{displayEmail}</strong>
             </div>
-            <div className={"mb-3"}>
-              <span className={"d-block text-secondary small mb-2"}>Phone</span><strong>+1 555 123 4567</strong>
-            </div>
-            <div className={"mb-3"}>
-              <span className={"d-block text-secondary small mb-2"}>Location</span><strong>London, UK</strong>
-            </div>
             <hr className={"border-secondary my-3"} />
             <h3 className={"panel-title mb-2"}>{t('Password & Security')}</h3>
             <form onSubmit={handleSave} noValidate>
